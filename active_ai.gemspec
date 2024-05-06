@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require_relative 'lib/active_llm/version'
+require_relative 'lib/active_ai/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'active_llm'
-  spec.version = ActiveLLM::VERSION
+  spec.name = 'active_ai'
+  spec.version = ActiveAI::VERSION
   spec.authors = ['Sergio Bayona']
   spec.email = ['bayona.sergio@gmail.com']
 
   spec.summary = 'Generate json-schema from Ruby classes.'
   spec.description = 'Generate json-schema from plain Ruby classes.'
-  spec.homepage = 'https://github.com/sergiobayona/active_llm'
+  spec.homepage = 'https://github.com/sergiobayona/active_ai'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2'
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/sergiobayona/active_llm'
-  spec.metadata['changelog_uri'] = 'https://github.com/sergiobayona/active_llm/blob/main/CHANGELOG.md'
+  spec.metadata['source_code_uri'] = 'https://github.com/sergiobayona/active_ai'
+  spec.metadata['changelog_uri'] = 'https://github.com/sergiobayona/active_ai/blob/main/CHANGELOG.md'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -31,7 +31,9 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '~> 7.0'
+  spec.add_dependency 'actionpack', '~> 7.0'
+  spec.add_dependency 'instructor-rb'
+  spec.add_dependency 'jbuilder', '~> 2.11'
   spec.add_dependency 'json-schema', '~> 4'
   spec.add_dependency 'sorbet-runtime', '~> 0.5'
   spec.add_development_dependency 'pry-byebug', '>= 3.10'
@@ -44,4 +46,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rake', '~> 0.6'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.29'
   spec.add_development_dependency 'sqlite3', '~> 1.4'
+  spec.add_development_dependency 'vcr', '~> 6.0'
+  spec.add_development_dependency 'webmock', '~> 3.13'
 end

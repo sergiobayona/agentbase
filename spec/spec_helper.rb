@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 require 'rake'
+require 'active_ai'
 require 'rspec'
+require 'vcr'
 require 'rspec/mocks'
-require 'active_llm'
 require 'pry-byebug'
 require 'rspec/json_expectations'
 
 ENV['RAILS_ENV'] ||= 'test'
-
+require 'active_ai/railtie'
 require File.expand_path('dummy/config/environment', __dir__)
 ActiveRecord::Migrator.migrations_paths = [File.expand_path('../spec/dummy/db/migrate', __dir__)]
 ActiveRecord::Migrator.migrations_paths << File.expand_path('../db/migrate', __dir__)
@@ -18,11 +19,17 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
 
-  config.disable_monkey_patching!
-
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/vcr_cassettes'
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+  config.filter_sensitive_data('<OPENAI_KEY_PLACEHOLDER>') { ENV.fetch('OPENAI_API_KEY', 'XXXXX') }
+  config.filter_sensitive_data('<ANTHROPIC_KEY_PLACEHOLDER>') { ENV.fetch('ANTHROPIC_API_KEY', 'XXXXX') }
 end
 
 begin
