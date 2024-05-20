@@ -9,7 +9,7 @@ require 'pry-byebug'
 require 'rspec/json_expectations'
 
 ENV['RAILS_ENV'] ||= 'test'
-require 'active_ai/railtie'
+
 require File.expand_path('dummy/config/environment', __dir__)
 ActiveRecord::Migrator.migrations_paths = [File.expand_path('../spec/dummy/db/migrate', __dir__)]
 ActiveRecord::Migrator.migrations_paths << File.expand_path('../db/migrate', __dir__)
@@ -21,6 +21,10 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:each) do |example|
+    require 'active_ai/railtie' unless example.metadata[:load_activeai] == false
   end
 end
 

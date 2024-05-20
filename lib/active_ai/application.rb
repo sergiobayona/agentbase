@@ -5,9 +5,11 @@ require_relative 'assistant'
 module ActiveAI
   module Application
     class ActiveAI
-      attr_accessor :config
+      attr_accessor :config, :routes
 
       def initialize
+        Routing::Router.load_routes
+        @routes = Routing::Router.app_routes
         @config = ::ActiveAI::Configuration.new
       end
 

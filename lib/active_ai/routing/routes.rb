@@ -8,7 +8,7 @@ module ActiveAI
           @routes ||= Routes.new
         end
 
-        def load_routes!
+        def load_routes
           load route_source
         end
 

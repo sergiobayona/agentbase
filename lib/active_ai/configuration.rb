@@ -12,7 +12,6 @@ module ActiveAI
       @model = @options.fetch(:model, default_model)
       @client = @options.fetch(:client, default_client)
       @api_key = @options.fetch(:api_key, default_client_key)
-      Routing::Router.load_routes! # load routes from the app's active_ai/config/routes.rb file.
     end
 
     class << self

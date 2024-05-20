@@ -32,11 +32,7 @@ RSpec.describe ActiveAI::Models::Routes do
                                                                     "type": 'string',
                                                                     "description": 'The parameter value'
                                                                   }
-                                                                },
-                                                                "required": %w[
-                                                                  key
-                                                                  value
-                                                                ]
+                                                                }
                                                               },
                                                               "title": {
                                                                 "type": 'string',
