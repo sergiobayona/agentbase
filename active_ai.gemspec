@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Sergio Bayona']
   spec.email = ['bayona.sergio@gmail.com']
 
-  spec.summary = 'Generate json-schema from Ruby classes.'
-  spec.description = 'Generate json-schema from plain Ruby classes.'
+  spec.summary = 'ActiveAI: A framework for multimodal AI applications.'
+  spec.description = 'A Rails-mountable framework for building application using multimodal Artificial Intelligence.'
   spec.homepage = 'https://github.com/sergiobayona/active_ai'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2'
@@ -31,13 +31,13 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'actionpack', '~> 7.0'
   spec.add_dependency 'instructor-rb'
   spec.add_dependency 'jbuilder', '~> 2.11'
   spec.add_dependency 'json-schema', '~> 4'
+  spec.add_dependency 'langchainrb', '~> 0.13'
+  spec.add_dependency 'rails', '~> 7.0'
   spec.add_dependency 'sorbet-runtime', '~> 0.5'
   spec.add_development_dependency 'pry-byebug', '>= 3.10'
-  spec.add_development_dependency 'rails', '~> 7.0'
   spec.add_development_dependency 'rake', '~> 13.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-json_expectations', '~> 2.0'
