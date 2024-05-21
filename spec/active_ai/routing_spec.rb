@@ -45,9 +45,20 @@ RSpec.describe ActiveAI::Routing do
     end
   end
 
-  describe 'init_routes', vcr: 'routing/init' do
+  describe 'setup?', vcr: 'routing/init' do
+    it 'returns false if @@setup is false' do
+      expect(ActiveAI::Routing.setup?).to be_falsey
+    end
+
+    it 'returns true if @@setup is true' do
+      ActiveAI::Routing.setup
+      expect(ActiveAI::Routing.setup?).to be_truthy
+    end
+  end
+
+  describe 'setup', vcr: 'routing/init' do
     it 'calls LLM.client.chat with the correct parameters' do
-      res = ActiveAI::Routing.init_routes
+      res = ActiveAI::Routing.setup
       expect(res).to be_truthy
     end
   end

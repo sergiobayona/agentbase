@@ -1,5 +1,4 @@
 require 'active_ai/clients/openai'
-require 'rails'
 
 module ActiveAI
   class Configuration

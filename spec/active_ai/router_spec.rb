@@ -21,4 +21,10 @@ RSpec.describe ActiveAI::Routing::Router do
   it "returns the app's routes" do
     expect(ActiveAI::Router.app_routes).to be_a(Hash)
   end
+
+  describe 'flexing the router tool' do
+    it 'returns the correct route', vcr: 'router/flexing' do
+      expect(ActiveAI::Router.route_for_message('Show user with id 123')).to eq('/user/id')
+    end
+  end
 end

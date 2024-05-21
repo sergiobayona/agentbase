@@ -1,3 +1,4 @@
+require_relative 'routing'
 module ActiveAI
   module Routing
     class Router
@@ -14,6 +15,30 @@ module ActiveAI
 
         def app_routes
           routes.routes
+        end
+
+        def route_for_message(message)
+          ensure_routing_is_loaded
+          ActiveAI::Client.chat(
+            parameters: {
+              model: ActiveAI::Configuration.model,
+              messages: [
+                {
+                  role: 'user',
+                  content: message
+                }
+              ],
+              tool_choice: {
+                type: 'function',
+                function: { name: 'system_routes' }
+              }
+            }
+          )
+        end
+
+        def ensure_routing_is_loaded
+          load_routes unless app_routes.any?
+          Routing.setup unless Routing.setup?
         end
       end
     end
