@@ -55,6 +55,10 @@ module ActiveAI
         @@setup = true
       end
 
+      def setup?
+        @@setup
+      end
+
       private
 
       def create_assistant
@@ -138,10 +142,6 @@ module ActiveAI
             end
           end
         end
-      end
-
-      def setup?
-        @@setup
       end
 
       def json_routes

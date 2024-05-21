@@ -1,0 +1,958 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/assistants
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o","name":"A system that classifies conversations into
+        routes.","instructions":"Given the following conversation, classify it into
+        one of the existing routes based on the nature of the interaction and the
+        capabilities demonstrated by the AI assistant. If the conversation does not
+        fit well into any of the predefined routes, suggest a new route, a relevant
+        path and parameters for the category. Additionally, provide a short title
+        (less than 10 words) that summarizes the conversation.\nExisting routes:\n\u003ccapabilities\u003e\n[{\"name\":\"user_id\",\"path\":\"/user/id\",\"parameters\":{\"id\":\"id\"},\"phrasing\":[\"Show
+        user with id :id\",\"My id is :id\",\"I am user :id\"]},{\"name\":\"user_email\",\"path\":\"/user/email\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Show
+        user with email :email\",\"My email is :email\",\"I am user :email\"]},{\"name\":\"user_email_authenticate\",\"path\":\"/user/email/authenticate\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Authenticate
+        user with email :email\",\"My email is :email\"]}]\n\u003c/capabilities\u003e\n\nIf
+        the conversation fits into an existing route, provide the following:\n- Name:
+        [The name of the route]\n- Path: [The path to the route]\n- Parameters: [a
+        set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive
+        and specific title summarizing the conversation in less than 10 words]\nIf
+        the conversation does not fit well into any existing route, provide the following:\n-
+        Topic: [Propose a name for the new category in snake_case]\n- Path: [Propose
+        a path in snake_case, separated by commas]\n- Parameters: [Propose a set of
+        key-value pairs for parameters in snake_case]\n- Title: [A short descriptive
+        and specific title summarizing the conversation in less than 10 words]\n","tools":[{"type":"function","function":{"name":"system_routes","description":"Correctly
+        extracted `system_routes` with all the required parameters with correct types","parameters":{"type":"object","properties":{"name":{"type":"string","description":"The
+        name of the route"},"path":{"type":"string","description":"The path to the
+        route"},"parameters":{"type":"object","title":"system_params","properties":{"key":{"type":"string","description":"The
+        parameter key"},"value":{"type":"string","description":"The parameter value"}}},"title":{"type":"string","description":"A
+        short description of the conversation"}},"required":["name","path","title"]}}}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:51 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_67ef8b6bc0c8e4f1e75296e0b3321442
+      Openai-Processing-Ms:
+      - '114'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=q9u_9ro9AmffU2NxRL_f38snQhW9rg16wYciwK6s65M-1716322071-1.0.1.1-bWDro21s.sPY3i0IxadsrnOXEhJ64FWQQvE0SXo8y_fzetGnBBSJZu6Iwea_7rQTWAityQnZgpRbLYeR0KBtKQ;
+        path=/; expires=Tue, 21-May-24 20:37:51 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=Ryw_v5Pkk.2A6T2Lk9ZZaEYY7GXgLh_mwlHBlBjvjZ4-1716322071015-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887731eec85a0325-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "asst_rFDveYzsz4GyyEIohDMwOips",
+          "object": "assistant",
+          "created_at": 1716322070,
+          "name": "A system that classifies conversations into routes.",
+          "description": null,
+          "model": "gpt-4o",
+          "instructions": "Given the following conversation, classify it into one of the existing routes based on the nature of the interaction and the capabilities demonstrated by the AI assistant. If the conversation does not fit well into any of the predefined routes, suggest a new route, a relevant path and parameters for the category. Additionally, provide a short title (less than 10 words) that summarizes the conversation.\nExisting routes:\n<capabilities>\n[{\"name\":\"user_id\",\"path\":\"/user/id\",\"parameters\":{\"id\":\"id\"},\"phrasing\":[\"Show user with id :id\",\"My id is :id\",\"I am user :id\"]},{\"name\":\"user_email\",\"path\":\"/user/email\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Show user with email :email\",\"My email is :email\",\"I am user :email\"]},{\"name\":\"user_email_authenticate\",\"path\":\"/user/email/authenticate\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Authenticate user with email :email\",\"My email is :email\"]}]\n</capabilities>\n\nIf the conversation fits into an existing route, provide the following:\n- Name: [The name of the route]\n- Path: [The path to the route]\n- Parameters: [a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\nIf the conversation does not fit well into any existing route, provide the following:\n- Topic: [Propose a name for the new category in snake_case]\n- Path: [Propose a path in snake_case, separated by commas]\n- Parameters: [Propose a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\n",
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "system_routes",
+                "description": "Correctly extracted `system_routes` with all the required parameters with correct types",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the route"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "The path to the route"
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "title": "system_params",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "The parameter key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The parameter value"
+                        }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "A short description of the conversation"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "path",
+                    "title"
+                  ]
+                }
+              }
+            }
+          ],
+          "top_p": 1.0,
+          "temperature": 1.0,
+          "tool_resources": {},
+          "metadata": {},
+          "response_format": "auto"
+        }
+  recorded_at: Tue, 21 May 2024 20:07:50 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/threads
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:51 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_9eba1114174ff4c299033d7c87defef8
+      Openai-Processing-Ms:
+      - '25'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=.c1V.b1_KnW_Fv3xTU7Zedy1R4kOtBQ_sg7eITACj7g-1716322071-1.0.1.1-yJLxrZp69XFHZYUYF7bAyCobxnlKfRxBntFhCdOXPC07IvyVYibPmtwmwnp_K6kck0mCu8yHRRwY8ZYgfkUF8g;
+        path=/; expires=Tue, 21-May-24 20:37:51 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=issx_C.4ypsh7Zkl_v9Brt5IzMc5u_y_jrNrTkMMTZA-1716322071323-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887731f148608dac-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "object": "thread",
+          "created_at": 1716322071,
+          "metadata": {},
+          "tool_resources": {}
+        }
+  recorded_at: Tue, 21 May 2024 20:07:51 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/messages
+    body:
+      encoding: UTF-8
+      string: '{"role":"user","content":"Hello, I have a conversation that I would
+        like to classify into a route. Can you help me with that?"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:51 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_bde61ee7471404a7c660fc1ccd1284a0
+      Openai-Processing-Ms:
+      - '44'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=bpu2mc80bXugCgs.WE0du1ntJryHA7AGOqVflyqGBz4-1716322071-1.0.1.1-bbV5nX.ZQS1ej.SWwWVkFeicIu5o7z55YQE5UmGpXXg.qmxjGQMfea4cVb3.gzh7cLgQREJqnaAF057nu98B3g;
+        path=/; expires=Tue, 21-May-24 20:37:51 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=1jFozdiBxfWjYEwLavPS8ypno_zvSA5PKFqc.bpIrLw-1716322071672-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887731f358384976-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "msg_PxSiKeVTVqVsqWP5x88Hzf5x",
+          "object": "thread.message",
+          "created_at": 1716322071,
+          "assistant_id": null,
+          "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "run_id": null,
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": {
+                "value": "Hello, I have a conversation that I would like to classify into a route. Can you help me with that?",
+                "annotations": []
+              }
+            }
+          ],
+          "attachments": [],
+          "metadata": {}
+        }
+  recorded_at: Tue, 21 May 2024 20:07:51 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/runs
+    body:
+      encoding: UTF-8
+      string: '{"assistant_id":"asst_rFDveYzsz4GyyEIohDMwOips"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:52 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_e5656c821c5559ec0613d085d86114fb
+      Openai-Processing-Ms:
+      - '254'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=hPjmLEnLesGlzc8hMM1n0IRN0fYeAFjn.yhiDKuRYQQ-1716322072-1.0.1.1-iXgEdDvelP5kviIQxUBlSMMir7Kl5tgspri1iBa07TEI9RUPuvW9fBU8SjKHA4G97Mw6u8aDzicZFZjnm6aqiA;
+        path=/; expires=Tue, 21-May-24 20:37:52 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=5ny.73xl_zREVtPQhNKuJo0rQ_ai0rkvEmJJMrv9mm0-1716322072202-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887731f55edba536-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "run_c45jbqwsJY7bTiOhuvP4Nv7T",
+          "object": "thread.run",
+          "created_at": 1716322072,
+          "assistant_id": "asst_rFDveYzsz4GyyEIohDMwOips",
+          "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "status": "queued",
+          "started_at": null,
+          "expires_at": 1716322672,
+          "cancelled_at": null,
+          "failed_at": null,
+          "completed_at": null,
+          "required_action": null,
+          "last_error": null,
+          "model": "gpt-4o",
+          "instructions": "Given the following conversation, classify it into one of the existing routes based on the nature of the interaction and the capabilities demonstrated by the AI assistant. If the conversation does not fit well into any of the predefined routes, suggest a new route, a relevant path and parameters for the category. Additionally, provide a short title (less than 10 words) that summarizes the conversation.\nExisting routes:\n<capabilities>\n[{\"name\":\"user_id\",\"path\":\"/user/id\",\"parameters\":{\"id\":\"id\"},\"phrasing\":[\"Show user with id :id\",\"My id is :id\",\"I am user :id\"]},{\"name\":\"user_email\",\"path\":\"/user/email\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Show user with email :email\",\"My email is :email\",\"I am user :email\"]},{\"name\":\"user_email_authenticate\",\"path\":\"/user/email/authenticate\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Authenticate user with email :email\",\"My email is :email\"]}]\n</capabilities>\n\nIf the conversation fits into an existing route, provide the following:\n- Name: [The name of the route]\n- Path: [The path to the route]\n- Parameters: [a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\nIf the conversation does not fit well into any existing route, provide the following:\n- Topic: [Propose a name for the new category in snake_case]\n- Path: [Propose a path in snake_case, separated by commas]\n- Parameters: [Propose a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\n",
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "system_routes",
+                "description": "Correctly extracted `system_routes` with all the required parameters with correct types",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the route"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "The path to the route"
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "title": "system_params",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "The parameter key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The parameter value"
+                        }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "A short description of the conversation"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "path",
+                    "title"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_resources": {},
+          "metadata": {},
+          "temperature": 1.0,
+          "top_p": 1.0,
+          "max_completion_tokens": null,
+          "max_prompt_tokens": null,
+          "truncation_strategy": {
+            "type": "auto",
+            "last_messages": null
+          },
+          "incomplete_details": null,
+          "usage": null,
+          "response_format": "auto",
+          "tool_choice": "auto"
+        }
+  recorded_at: Tue, 21 May 2024 20:07:52 GMT
+- request:
+    method: get
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/runs/run_c45jbqwsJY7bTiOhuvP4Nv7T
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:52 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_14eb7c249f686252b54e91c67ec28417
+      Openai-Processing-Ms:
+      - '59'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=TO4RYrNsKdasfTbpnDMtGmR7lNy6sUyZAh76pJ.pqvs-1716322072-1.0.1.1-R_dKU_UfNFgYq8M3pX8PKMSGktXPshDLkdFuT6vFcIft4BmdIY7LIHU4pN3XWh3ac3YMivSgL4gIjzdF4HbnGA;
+        path=/; expires=Tue, 21-May-24 20:37:52 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=F3FqNUJ.dH5TE_iAt9_37jc7ic0XtTsbD6cThxxyYeM-1716322072646-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887731f95d65a4e6-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "run_c45jbqwsJY7bTiOhuvP4Nv7T",
+          "object": "thread.run",
+          "created_at": 1716322072,
+          "assistant_id": "asst_rFDveYzsz4GyyEIohDMwOips",
+          "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "status": "in_progress",
+          "started_at": 1716322072,
+          "expires_at": 1716322672,
+          "cancelled_at": null,
+          "failed_at": null,
+          "completed_at": null,
+          "required_action": null,
+          "last_error": null,
+          "model": "gpt-4o",
+          "instructions": "Given the following conversation, classify it into one of the existing routes based on the nature of the interaction and the capabilities demonstrated by the AI assistant. If the conversation does not fit well into any of the predefined routes, suggest a new route, a relevant path and parameters for the category. Additionally, provide a short title (less than 10 words) that summarizes the conversation.\nExisting routes:\n<capabilities>\n[{\"name\":\"user_id\",\"path\":\"/user/id\",\"parameters\":{\"id\":\"id\"},\"phrasing\":[\"Show user with id :id\",\"My id is :id\",\"I am user :id\"]},{\"name\":\"user_email\",\"path\":\"/user/email\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Show user with email :email\",\"My email is :email\",\"I am user :email\"]},{\"name\":\"user_email_authenticate\",\"path\":\"/user/email/authenticate\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Authenticate user with email :email\",\"My email is :email\"]}]\n</capabilities>\n\nIf the conversation fits into an existing route, provide the following:\n- Name: [The name of the route]\n- Path: [The path to the route]\n- Parameters: [a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\nIf the conversation does not fit well into any existing route, provide the following:\n- Topic: [Propose a name for the new category in snake_case]\n- Path: [Propose a path in snake_case, separated by commas]\n- Parameters: [Propose a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\n",
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "system_routes",
+                "description": "Correctly extracted `system_routes` with all the required parameters with correct types",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the route"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "The path to the route"
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "title": "system_params",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "The parameter key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The parameter value"
+                        }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "A short description of the conversation"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "path",
+                    "title"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_resources": {},
+          "metadata": {},
+          "temperature": 1.0,
+          "top_p": 1.0,
+          "max_completion_tokens": null,
+          "max_prompt_tokens": null,
+          "truncation_strategy": {
+            "type": "auto",
+            "last_messages": null
+          },
+          "incomplete_details": null,
+          "usage": null,
+          "response_format": "auto",
+          "tool_choice": "auto"
+        }
+  recorded_at: Tue, 21 May 2024 20:07:52 GMT
+- request:
+    method: get
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/runs/run_c45jbqwsJY7bTiOhuvP4Nv7T
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_97688e6f1af11336c2abb0a5e9e9d6e7
+      Openai-Processing-Ms:
+      - '63'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=ofBDXVoOQZ0CtQK1qn24PP6JVvVvtl._BHWfUJPZVSA-1716322074-1.0.1.1-OPGenrVyD_PBxv4hPB2Y9I44_AGEu0HNPjyI0j1G6Qu8yJ3N8SOPWwu2WTaqYVmzlShMebwDCdkM0GoQLM6HzQ;
+        path=/; expires=Tue, 21-May-24 20:37:54 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=x6yxrY30.1cH9PQ_7quOXKqb529XK5elKAkxrPaQ0qU-1716322074015-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 88773201cac4032d-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "run_c45jbqwsJY7bTiOhuvP4Nv7T",
+          "object": "thread.run",
+          "created_at": 1716322072,
+          "assistant_id": "asst_rFDveYzsz4GyyEIohDMwOips",
+          "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "status": "completed",
+          "started_at": 1716322072,
+          "expires_at": null,
+          "cancelled_at": null,
+          "failed_at": null,
+          "completed_at": 1716322073,
+          "required_action": null,
+          "last_error": null,
+          "model": "gpt-4o",
+          "instructions": "Given the following conversation, classify it into one of the existing routes based on the nature of the interaction and the capabilities demonstrated by the AI assistant. If the conversation does not fit well into any of the predefined routes, suggest a new route, a relevant path and parameters for the category. Additionally, provide a short title (less than 10 words) that summarizes the conversation.\nExisting routes:\n<capabilities>\n[{\"name\":\"user_id\",\"path\":\"/user/id\",\"parameters\":{\"id\":\"id\"},\"phrasing\":[\"Show user with id :id\",\"My id is :id\",\"I am user :id\"]},{\"name\":\"user_email\",\"path\":\"/user/email\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Show user with email :email\",\"My email is :email\",\"I am user :email\"]},{\"name\":\"user_email_authenticate\",\"path\":\"/user/email/authenticate\",\"parameters\":{\"email\":\"email\"},\"phrasing\":[\"Authenticate user with email :email\",\"My email is :email\"]}]\n</capabilities>\n\nIf the conversation fits into an existing route, provide the following:\n- Name: [The name of the route]\n- Path: [The path to the route]\n- Parameters: [a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\nIf the conversation does not fit well into any existing route, provide the following:\n- Topic: [Propose a name for the new category in snake_case]\n- Path: [Propose a path in snake_case, separated by commas]\n- Parameters: [Propose a set of key-value pairs for parameters in snake_case]\n- Title: [A short descriptive and specific title summarizing the conversation in less than 10 words]\n",
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "system_routes",
+                "description": "Correctly extracted `system_routes` with all the required parameters with correct types",
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the route"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "The path to the route"
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "title": "system_params",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "The parameter key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The parameter value"
+                        }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "A short description of the conversation"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "path",
+                    "title"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_resources": {},
+          "metadata": {},
+          "temperature": 1.0,
+          "top_p": 1.0,
+          "max_completion_tokens": null,
+          "max_prompt_tokens": null,
+          "truncation_strategy": {
+            "type": "auto",
+            "last_messages": null
+          },
+          "incomplete_details": null,
+          "usage": {
+            "prompt_tokens": 704,
+            "completion_tokens": 32,
+            "total_tokens": 736
+          },
+          "response_format": "auto",
+          "tool_choice": "auto"
+        }
+  recorded_at: Tue, 21 May 2024 20:07:54 GMT
+- request:
+    method: get
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/runs/run_c45jbqwsJY7bTiOhuvP4Nv7T/steps?order=asc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_93b7538154f8c79fefbc5e6f9184add3
+      Openai-Processing-Ms:
+      - '35'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=We3dtNKYBqDIxradlPTGqmDwrmBNqZwtaIXhboNaT1s-1716322074-1.0.1.1-7rnjAzrQQNfnLO6Q9lQD9Jub4Ft85kTTSR1IoqSCf5FJUWhVHQWqCHRvVGB1eJPtEpt9qx27bw26kTlBqC4.ZA;
+        path=/; expires=Tue, 21-May-24 20:37:54 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=O8cRPD9rtqoUnHuFRTCYzEeZCEO__g0vSkbwlQcBsCk-1716322074329-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887732040994b3b9-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "object": "list",
+          "data": [
+            {
+              "id": "step_AmvTyJiRVGwfvOQ3ozzPdCui",
+              "object": "thread.run.step",
+              "created_at": 1716322073,
+              "run_id": "run_c45jbqwsJY7bTiOhuvP4Nv7T",
+              "assistant_id": "asst_rFDveYzsz4GyyEIohDMwOips",
+              "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+              "type": "message_creation",
+              "status": "completed",
+              "cancelled_at": null,
+              "completed_at": 1716322073,
+              "expires_at": null,
+              "failed_at": null,
+              "last_error": null,
+              "step_details": {
+                "type": "message_creation",
+                "message_creation": {
+                  "message_id": "msg_dQlN2mqUC4MHohxU1KAyo4DD"
+                }
+              },
+              "usage": {
+                "prompt_tokens": 704,
+                "completion_tokens": 32,
+                "total_tokens": 736
+              }
+            }
+          ],
+          "first_id": "step_AmvTyJiRVGwfvOQ3ozzPdCui",
+          "last_id": "step_AmvTyJiRVGwfvOQ3ozzPdCui",
+          "has_more": false
+        }
+  recorded_at: Tue, 21 May 2024 20:07:54 GMT
+- request:
+    method: get
+    uri: https://api.openai.com/v1/threads/thread_OZcZoFynA5Bxwwm0sHhs1Jj4/messages/msg_dQlN2mqUC4MHohxU1KAyo4DD
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Openai-Beta:
+      - assistants=v2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      X-Request-Id:
+      - req_921ef64dd1ad96e5f99ea122c1971f42
+      Openai-Processing-Ms:
+      - '55'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=XfKMdIlZg5Xf9MyIbUAqlsyJQgVAYW66GpOxxjiagZI-1716322074-1.0.1.1-VaV9nrhMS0zr2b4J4eWd8IzsG_UJ_JL2ULajA9Q07DKuGqVfy9Nh_Mg78YFpkYz9s6VJqObE1fz5V2juDQrE8w;
+        path=/; expires=Tue, 21-May-24 20:37:54 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=WE.Uz9UCbj8ozXC4skC2ZKqNIoYhVBgpfiofys3bB_o-1716322074736-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887732067b4609f6-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "msg_dQlN2mqUC4MHohxU1KAyo4DD",
+          "object": "thread.message",
+          "created_at": 1716322073,
+          "assistant_id": "asst_rFDveYzsz4GyyEIohDMwOips",
+          "thread_id": "thread_OZcZoFynA5Bxwwm0sHhs1Jj4",
+          "run_id": "run_c45jbqwsJY7bTiOhuvP4Nv7T",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": {
+                "value": "Of course, I'd be happy to help. Please provide the conversation, and I'll classify it into an existing route or suggest a new one if necessary.",
+                "annotations": []
+              }
+            }
+          ],
+          "attachments": [],
+          "metadata": {}
+        }
+  recorded_at: Tue, 21 May 2024 20:07:54 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"Show
+        user with id 123"}],"tool_choice":{"type":"function","function":{"name":"system_routes"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <OPENAI_KEY_PLACEHOLDER>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Tue, 21 May 2024 20:07:55 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '211'
+      Connection:
+      - keep-alive
+      Openai-Organization:
+      - user-jtftkqrbreteg5pmdrfzchv6
+      Openai-Processing-Ms:
+      - '14'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '60000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '59977'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 23ms
+      X-Request-Id:
+      - req_76784cecaef988a51850e7435807c03f
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=GJ.1l_CtpKvlvDqURgOpPjbRh87_R0UgPKYoU3IQsD4-1716322075-1.0.1.1-8g3H.VAcbRFS5Jop.BAOwwNRGff1qiSgdVjWjKx3Vs1NuuYxhyCc08ozyCG2r8Mw7XGKtfmfYEcEh.Epz3XUZQ;
+        path=/; expires=Tue, 21-May-24 20:37:55 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=k9Isd5wsVVG33ZLugRQIlBc2xLAnrDwnQ5IQjMvmugI-1716322075117-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 887732089f57dae1-MIA
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "error": {
+            "message": "Invalid value for 'tool_choice': 'tool_choice' is only allowed when 'tools' are specified.",
+            "type": "invalid_request_error",
+            "param": "tool_choice",
+            "code": null
+          }
+        }
+  recorded_at: Tue, 21 May 2024 20:07:55 GMT
+recorded_with: VCR 6.2.0

@@ -23,6 +23,12 @@ RSpec/FilePath:
 RSpec/MultipleExpectations:
   Max: 4
 
+Metrics/ClassLength:
+  Max: 130
+
+Metrics/ModuleLength:
+  Max: 150
+
 RSpec/ExampleLength:
   Max: 10
   Exclude:
