@@ -1,12 +1,28 @@
+# frozen_string_literal: true
+
 require 'jbuilder'
 require_relative '../client'
 require_relative '../models/routes'
 
 module ActiveAI
   module Routing
+    MAX_ATTEMPTS = 3
+    SLEEP_INTERVAL = 1
+    STATUSES = {
+      queued: 'queued',
+      in_progress: 'in_progress',
+      cancelling: 'cancelling',
+      completed: 'completed',
+      requires_action: 'requires_action',
+      cancelled: 'cancelled',
+      failed: 'failed',
+      expired: 'expired'
+    }.freeze
+
     @@setup = false
+
     class << self
-      def prompt(json_routes = {})
+      def prompt(json_routes)
         <<~PROMPT
           Given the following conversation, classify it into one of the existing routes based on the nature of the interaction and the capabilities demonstrated by the AI assistant. If the conversation does not fit well into any of the predefined routes, suggest a new route, a relevant path and parameters for the category. Additionally, provide a short title (less than 10 words) that summarizes the conversation.
           Existing routes:
@@ -28,6 +44,20 @@ module ActiveAI
       end
 
       def setup
+        create_assistant
+        create_thread
+        create_message
+        create_run
+        wait_for_run_to_complete
+        retrieve_run_steps
+        retrieve_new_messages
+        print_new_messages
+        @@setup = true
+      end
+
+      private
+
+      def create_assistant
         assistant = Client.assistants.create(
           parameters: {
             model: 'gpt-4o',
@@ -36,66 +66,75 @@ module ActiveAI
             tools: [EasyTalk::Tools::FunctionBuilder.new(Models::Routes)]
           }
         )
-        assistant_id = assistant['id']
+        @assistant_id = assistant['id']
+      end
+
+      def create_thread
         response = Client.threads.create
-        thread_id = response['id']
+        @thread_id = response['id']
+      end
+
+      def create_message
         message = Client.messages.create(
-          thread_id:,
+          thread_id: @thread_id,
           parameters: {
             role: 'user',
             content: 'Hello, I have a conversation that I would like to classify into a route. Can you help me with that?'
           }
         )
-        message_id = message['id']
+        @message_id = message['id']
+      end
+
+      def create_run
         run = Client.runs.create(
-          thread_id:,
+          thread_id: @thread_id,
           parameters: {
-            assistant_id:
+            assistant_id: @assistant_id
           }
         )
-        run_id = run['id']
+        @run_id = run['id']
+      end
 
-        while true
-          response = Client.runs.retrieve(id: run_id, thread_id:)
+      def wait_for_run_to_complete
+        attempts = 0
+        while attempts < MAX_ATTEMPTS
+          response = Client.runs.retrieve(id: @run_id, thread_id: @thread_id)
           status = response['status']
 
           case status
-          when 'queued', 'in_progress', 'cancelling'
-            sleep 1
-          when 'completed'
-            break
-          when 'requires_action'
-            # Handle tool calls
-          when 'cancelled', 'failed', 'expired'
-            puts response['last_error'].inspect
+          when STATUSES[:queued], STATUSES[:in_progress], STATUSES[:cancelling]
+            sleep SLEEP_INTERVAL
+          when STATUSES[:completed], STATUSES[:requires_action], STATUSES[:cancelled], STATUSES[:failed], STATUSES[:expired]
             break
           else
             puts "Unknown status response: #{status}"
           end
+          attempts += 1
+        end
+      end
+
+      def retrieve_run_steps
+        @run_steps = Client.run_steps.list(thread_id: @thread_id, run_id: @run_id, parameters: { order: 'asc' })
+      end
+
+      def retrieve_new_messages
+        new_message_ids = @run_steps['data'].filter_map do |step|
+          step.dig('step_details', 'message_creation', 'message_id') if step['type'] == 'message_creation'
         end
 
-        run_steps = Client.run_steps.list(thread_id:, run_id:, parameters: { order: 'asc' })
-        new_message_ids = run_steps['data'].filter_map do |step|
-          if step['type'] == 'message_creation'
-            step.dig('step_details', 'message_creation', 'message_id')
-          end # Ignore tool calls, because they don't create new messages.
+        @new_messages = new_message_ids.map do |msg_id|
+          Client.messages.retrieve(id: msg_id, thread_id: @thread_id)
         end
+      end
 
-        # Retrieve the individual messages
-        new_messages = new_message_ids.map do |msg_id|
-          Client.messages.retrieve(id: msg_id, thread_id:)
-        end
-
-        # Find the actual response text in the content array of the messages
-        new_messages.each do |msg|
+      def print_new_messages
+        @new_messages.each do |msg|
           msg['content'].each do |content_item|
             case content_item['type']
             when 'text'
               puts content_item.dig('text', 'value')
-            # Also handle annotations
             when 'image_file'
-              # Use File endpoint to retrieve file contents via id
-              id = content_item.dig('image_file', 'file_id')
+              content_item.dig('image_file', 'file_id')
             end
           end
         end

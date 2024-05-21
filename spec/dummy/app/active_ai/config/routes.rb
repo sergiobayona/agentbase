@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAI::Router.routes.draw do
   route path: '/user/id',
         controller: 'user',

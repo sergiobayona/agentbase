@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveAI
   class User < Provider::Base
     PROMPT = <<-PROMPT

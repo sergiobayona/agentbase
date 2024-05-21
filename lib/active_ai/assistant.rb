@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveAI
   class Assistant
     def initialize(configuration)
@@ -15,8 +17,7 @@ module ActiveAI
       )
     end
 
-    def routing_tool
-    end
+    def routing_tool; end
 
     def request(message)
       request = RequestRouter.new

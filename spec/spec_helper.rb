@@ -23,7 +23,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before(:each) do |example|
+  config.before do |example|
     require 'active_ai/railtie' unless example.metadata[:load_activeai] == false
   end
 end

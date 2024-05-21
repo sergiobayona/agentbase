@@ -8,7 +8,7 @@ module ActiveAI
 
     config.after_initialize do
       ActiveAI::Router.route_source = Rails.root.join('app/active_ai/config/routes.rb')
-      app = ActiveAI::Application::ActiveAI.new
+      ActiveAI::Application::ActiveAI.new
       config.active_ai.routes = ActiveAI::Router.routes
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe ActiveAI::Configuration do
@@ -22,7 +24,7 @@ RSpec.describe ActiveAI::Configuration do
 
   describe '#configure' do
     before do
-      ActiveAI::Configuration.configure do |config|
+      described_class.configure do |config|
         config.api_key = 'abc123'
         config.client = custom_client
         config.model = 'gpt-3.5-turbo-0613'
@@ -31,16 +33,16 @@ RSpec.describe ActiveAI::Configuration do
     end
 
     it 'sets the custom values' do
-      expect(ActiveAI::Configuration.settings.api_key).to eq('abc123')
-      expect(ActiveAI::Configuration.settings.client).to eq(custom_client)
-      expect(ActiveAI::Configuration.settings.model).to eq('gpt-3.5-turbo-0613')
-      expect(ActiveAI::Configuration.settings.client_retries).to eq(5)
+      expect(described_class.settings.api_key).to eq('abc123')
+      expect(described_class.settings.client).to eq(custom_client)
+      expect(described_class.settings.model).to eq('gpt-3.5-turbo-0613')
+      expect(described_class.settings.client_retries).to eq(5)
     end
   end
 
   describe '.reset' do
     before do
-      ActiveAI::Configuration.configure do |config|
+      described_class.configure do |config|
         config.client = 'custom_client'
         config.model = 'custom_model'
         config.client_retries = 5
@@ -48,10 +50,10 @@ RSpec.describe ActiveAI::Configuration do
     end
 
     it 'resets the settings' do
-      ActiveAI::Configuration.reset
-      expect(ActiveAI::Configuration.settings.client).to eq(OpenAI::Client)
-      expect(ActiveAI::Configuration.settings.model).to eq('gpt-3.5-turbo')
-      expect(ActiveAI::Configuration.settings.client_retries).to eq(1)
+      described_class.reset
+      expect(described_class.settings.client).to eq(OpenAI::Client)
+      expect(described_class.settings.model).to eq('gpt-3.5-turbo')
+      expect(described_class.settings.client_retries).to eq(1)
     end
   end
 end

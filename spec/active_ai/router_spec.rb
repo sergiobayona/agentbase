@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe ActiveAI::Routing::Router do
   it 'returns an instance of ActiveAI::Routing::Router' do
-    expect(ActiveAI::Router).to eq(ActiveAI::Routing::Router)
+    expect(ActiveAI::Router).to eq(described_class)
   end
 
   it 'returns a pathname' do

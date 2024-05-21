@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :completed_tasks, -> { where.not(completed_at: nil) }, class_name: 'Task'
@@ -17,6 +19,6 @@ class User < ApplicationRecord
            else
              BCrypt::Engine.cost
            end
-    BCrypt::Password.create(string, cost: cost)
+    BCrypt::Password.create(string, cost:)
   end
 end
