@@ -3,10 +3,11 @@
 require 'jbuilder'
 require_relative '../client'
 require_relative '../models/routes'
+require 'event_stream_parser'
 
 module ActiveAI
   module Routing
-    MAX_ATTEMPTS = 3
+    MAX_ATTEMPTS = 5
     SLEEP_INTERVAL = 1
     STATUSES = {
       queued: 'queued',
@@ -48,10 +49,10 @@ module ActiveAI
         create_thread
         create_message
         create_run
-        wait_for_run_to_complete
-        retrieve_run_steps
-        retrieve_new_messages
-        print_new_messages
+        # wait_for_run_to_complete
+        # retrieve_run_steps
+        # retrieve_new_messages
+        # print_new_messages
         @@setup = true
       end
 
@@ -89,13 +90,21 @@ module ActiveAI
         @message_id = message['id']
       end
 
+      def parse(chunk)
+        puts chunk while chunk
+      end
+
       def create_run
         run = Client.runs.create(
           thread_id: @thread_id,
           parameters: {
-            assistant_id: @assistant_id
+            assistant_id: @assistant_id,
+            stream: proc do |chunk, _b|
+                      parse(chunk)
+                    end
           }
         )
+
         @run_id = run['id']
       end
 

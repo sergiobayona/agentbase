@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'event_stream_parser'
   spec.add_dependency 'instructor-rb'
   spec.add_dependency 'jbuilder', '~> 2.11'
   spec.add_dependency 'json-schema', '~> 4'

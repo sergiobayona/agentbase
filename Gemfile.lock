@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     active_ai (0.1.0)
+      event_stream_parser
       instructor-rb
       jbuilder (~> 2.11)
       json-schema (~> 4)
