@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ActiveAI
+module AgentBase
   class Assistant
     def initialize(configuration)
       @client = configuration.client.new

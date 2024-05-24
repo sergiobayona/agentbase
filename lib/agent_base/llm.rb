@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'active_ai/routing/routing'
-module ActiveAI
+require 'agent_base/routing/routing'
+module AgentBase
   class LLM
     def initialize(client)
       @client = client

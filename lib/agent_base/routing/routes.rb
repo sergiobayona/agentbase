@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'routing'
-module ActiveAI
+module AgentBase
   module Routing
     class Router
       class << self
@@ -21,9 +21,9 @@ module ActiveAI
 
         def route_for_message(message)
           ensure_routing_is_loaded
-          ActiveAI::Client.chat(
+          AgentBase::Client.chat(
             parameters: {
-              model: ActiveAI::Configuration.model,
+              model: AgentBase::Configuration.model,
               messages: [
                 {
                   role: 'user',
@@ -69,5 +69,5 @@ module ActiveAI
   end
 end
 
-ActiveAI::Router = ActiveAI::Routing::Router
-ActiveAI::Routes = ActiveAI::Routing::Routes
+AgentBase::Router = AgentBase::Routing::Router
+AgentBase::Routes = AgentBase::Routing::Routes

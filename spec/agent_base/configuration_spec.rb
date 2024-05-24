@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ActiveAI::Configuration do
+RSpec.describe AgentBase::Configuration do
   let(:custom_client) { double('CustomClient') }
 
   describe '#initialize' do

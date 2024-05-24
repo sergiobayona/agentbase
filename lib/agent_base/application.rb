@@ -4,19 +4,19 @@ require_relative 'configuration'
 require_relative 'routing/routes'
 require_relative 'assistant'
 
-module ActiveAI
+module AgentBase
   module Application
-    class ActiveAI
+    class AgentBase
       attr_accessor :config, :routes
 
       def initialize
         Routing::Router.load_routes
         @routes = Routing::Router.app_routes
-        @config = ::ActiveAI::Configuration.new
+        @config = ::AgentBase::Configuration.new
       end
 
       def help(message)
-        assistant = ActiveAI::Assistant.new(@config)
+        assistant = AgentBase::Assistant.new(@config)
         assistant.request(message)
       end
     end

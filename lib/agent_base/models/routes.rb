@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'instructor'
-module ActiveAI
+module AgentBase
   module Models
     class Params
       include EasyTalk::Model

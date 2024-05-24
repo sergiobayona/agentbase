@@ -7,7 +7,7 @@ RSpec.describe 'ActiveLlm::Demo' do
   let(:response) { assistant.help("I'm user Sergio Bayona with email bayona.sergio@gmail.com") }
 
   pending 'help response' do
-    expect(response).to be_a(ActiveAI::LLM::Response)
+    expect(response).to be_a(AgentBase::LLM::Response)
   end
 
   pending 'responds with a message' do

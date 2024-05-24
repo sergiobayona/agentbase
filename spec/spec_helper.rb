@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rake'
-require 'active_ai'
+require 'agent_base'
 require 'rspec'
 require 'vcr'
 require 'rspec/mocks'
@@ -24,7 +24,7 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    require 'active_ai/railtie' unless example.metadata[:load_activeai] == false
+    require 'agent_base/railtie' unless example.metadata[:load_activeai] == false
   end
 end
 

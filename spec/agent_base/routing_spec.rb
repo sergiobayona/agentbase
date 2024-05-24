@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe ActiveAI::Routing do
+RSpec.describe AgentBase::Routing do
   before do
-    ActiveAI::Configuration.reset
+    AgentBase::Configuration.reset
   end
 
   describe '.json_routes' do
@@ -43,7 +43,7 @@ RSpec.describe ActiveAI::Routing do
 
   describe '.app_routes' do
     it 'returns the values of app_routes' do
-      expect(described_class.app_routes).to eq(ActiveAI::Router.app_routes.values)
+      expect(described_class.app_routes).to eq(AgentBase::Router.app_routes.values)
     end
   end
 

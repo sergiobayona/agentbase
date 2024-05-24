@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ActiveAI
+module AgentBase
   class Response
     def initialize; end
   end

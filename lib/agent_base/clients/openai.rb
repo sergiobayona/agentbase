@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ActiveAI
+module AgentBase
   module Clients
     module OpenAI
       def self.client

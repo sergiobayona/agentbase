@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ActiveAI
+module AgentBase
   module Client
     class << self
       delegate :chat, :assistants, :threads, :messages, :runs, :run_steps, to: :client

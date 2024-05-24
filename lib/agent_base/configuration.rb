@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'active_ai/clients/openai'
+require 'agent_base/clients/openai'
 
-module ActiveAI
+module AgentBase
   class Configuration
     attr_reader :api_key, :model, :client_retries, :client
 
@@ -62,7 +62,7 @@ module ActiveAI
     end
 
     def default_client
-      ActiveAI::Clients::OpenAI.client
+      AgentBase::Clients::OpenAI.client
     end
 
     def default_model

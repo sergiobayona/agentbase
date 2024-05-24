@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ActiveAI::Models::Routes do
+RSpec.describe AgentBase::Models::Routes do
   describe 'function' do
     it 'returns the name of the route' do
       expect(described_class.name).to eq('system_routes')

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAI::Router.routes.draw do
+AgentBase::Router.routes.draw do
   route path: '/user/id',
         controller: 'user',
         action: 'show',
