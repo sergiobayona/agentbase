@@ -1,5 +1,9 @@
 module AgentBase
-  class Actions
+  module Tools
+    extend ActiveSupport::Autoload
+
+    autoload :Base
+
     class << self
       attr_accessor :source
 

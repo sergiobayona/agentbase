@@ -11,7 +11,7 @@ module AgentBase
 
   autoload :Configuration
   autoload :Application
-  autoload :Actions
+  autoload :Tools
 
   def self.root
     File.expand_path '..', __dir__

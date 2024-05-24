@@ -3,13 +3,14 @@
 require_relative 'configuration'
 require_relative 'routing/routes'
 require_relative 'assistant'
+require_relative 'tools'
 
 module AgentBase
   class Application
     attr_accessor :config, :routes
 
     def initialize
-      Actions.load
+      Tools.load
       @routes = Routing::Router.app_routes
       @config = ::AgentBase::Configuration.new
     end
