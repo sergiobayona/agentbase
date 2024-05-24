@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-# The AgentBase module is the main namespace for the gem.
+require 'agent_base/version'
+require 'active_support'
+require 'agent_base/engine'
+
 module AgentBase
   class Error < StandardError; end
-  require 'agent_base/version'
-  require 'agent_base/railtie' if defined?(Rails::Railtie)
-  require 'agent_base/llm'
-  require 'agent_base/assistant'
-  require 'agent_base/configuration'
-  require 'agent_base/clients/openai'
-  require 'agent_base/application'
+
+  extend ActiveSupport::Autoload
+
+  autoload :Configuration
+  autoload :Application
+  autoload :Actions
 
   def self.root
     File.expand_path '..', __dir__
