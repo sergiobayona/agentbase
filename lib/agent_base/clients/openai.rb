@@ -4,7 +4,7 @@ module AgentBase
   module Clients
     module OpenAI
       def self.client
-        Instructor.patch(::OpenAI::Client)
+        Instructor.from_openai(::OpenAI::Client)
       end
     end
   end
