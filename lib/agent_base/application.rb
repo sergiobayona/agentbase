@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative 'configuration'
-require_relative 'routing/routes'
 require_relative 'assistant'
 require_relative 'tools'
+require_relative 'models'
 
 module AgentBase
   class Application
