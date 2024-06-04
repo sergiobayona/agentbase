@@ -24,7 +24,7 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    require 'agent_base/railtie' unless example.metadata[:load_activeai] == false
+    require 'agent_base/engine' unless example.metadata[:load_activeai] == false
   end
 end
 

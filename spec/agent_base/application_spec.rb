@@ -9,8 +9,6 @@ RSpec.describe AgentBase::Application do
   describe '#initialize' do
     it 'initializes the application' do
       expect(application.config).to be_a(AgentBase::Configuration)
-      expect(application.routes).to be_a(Hash)
-      expect(application.routes.values.first).to be_a(AgentBase::Routing::Routes::Route)
     end
   end
 end
