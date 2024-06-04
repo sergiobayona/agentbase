@@ -7,6 +7,7 @@ module AgentBase
 
     config.after_initialize do
       AgentBase::Tools.source = Rails.root.join('app/agent_base/tools')
+      AgentBase::Models.source = Rails.root.join('app/agent_base/models')
     end
   end
 end

@@ -7,11 +7,11 @@ require_relative 'tools'
 
 module AgentBase
   class Application
-    attr_accessor :config, :routes
+    attr_accessor :config
 
     def initialize
       Tools.load
-      @routes = Routing::Router.app_routes
+      Models.load
       @config = ::AgentBase::Configuration.new
     end
 
