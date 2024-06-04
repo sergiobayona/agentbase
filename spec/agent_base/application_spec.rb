@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'agent_base'
 
-RSpec.describe AgentBase::Application::AgentBase do
+RSpec.describe AgentBase::Application do
   let(:application) { described_class.new }
 
   describe '#initialize' do
