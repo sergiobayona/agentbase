@@ -1,7 +1,5 @@
 module AgentBase::Models
   class User < Base
-    # def self.find(user_id)
-    #   User.new
-    # end
+    self.table_name = 'users'
   end
 end

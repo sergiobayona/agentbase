@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '~> 7.0'
   spec.add_dependency 'ruby-openai', '~> 7'
   spec.add_dependency 'sorbet-runtime', '~> 0.5'
+  spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'pry-byebug', '>= 3.10'
   spec.add_development_dependency 'rake', '~> 13.1'
   spec.add_development_dependency 'rspec', '~> 3.0'

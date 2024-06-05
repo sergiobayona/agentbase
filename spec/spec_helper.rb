@@ -7,6 +7,7 @@ require 'vcr'
 require 'rspec/mocks'
 require 'pry-byebug'
 require 'rspec/json_expectations'
+require 'database_cleaner/active_record'
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -16,6 +17,11 @@ ActiveRecord::Migrator.migrations_paths << File.expand_path('../db/migrate', __d
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
+DatabaseCleaner.strategy = :truncation
+
+# then, whenever you need to clean the DB
+DatabaseCleaner.clean
+
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
 
@@ -24,7 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    require 'agent_base/engine' unless example.metadata[:load_activeai] == false
+    require 'agent_base/engine' unless example.metadata[:load_agentbase] == false
   end
 end
 

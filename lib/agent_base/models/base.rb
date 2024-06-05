@@ -1,17 +1,7 @@
 module AgentBase
   module Models
-    class Base
-      def self.find(id)
-        new
-      end
-
-      def save
-        true
-      end
-
-      def errors
-        []
-      end
+    class Base < ActiveRecord::Base
+      self.abstract_class = true
     end
   end
 end

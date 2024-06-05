@@ -2,7 +2,6 @@
 
 require 'agent_base/version'
 require 'active_support'
-require 'agent_base/engine'
 
 module AgentBase
   class Error < StandardError; end

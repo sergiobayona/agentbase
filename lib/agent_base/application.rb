@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'configuration'
-require_relative 'assistant'
-require_relative 'tools'
-require_relative 'models'
-
 module AgentBase
   class Application
     attr_accessor :config
@@ -12,6 +7,8 @@ module AgentBase
     def initialize
       Tools.load
       Models.load
+      # Tasks.load
+
       @config = ::AgentBase::Configuration.new
     end
 
