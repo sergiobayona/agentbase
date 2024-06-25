@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Sergio Bayona']
   spec.email = ['bayona.sergio@gmail.com']
 
-  spec.summary = 'AgentBase: A framework for multimodal AI applications.'
-  spec.description = 'A Rails-mountable framework for building application using multimodal Artificial Intelligence.'
+  spec.summary = 'AgentBase: A Ruby library for building agent-driven applications.'
+  spec.description = 'A Rails-mountable library for building application using LLM models.'
   spec.homepage = 'https://github.com/sergiobayona/agent_base'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2'
