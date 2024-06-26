@@ -4,12 +4,14 @@ require 'spec_helper'
 
 RSpec.describe AgentBase::Tools do
   describe 'load' do
-    it 'loads all the tools' do
-      expect(described_class.constants).not_to include(:User)
+    it 'loads all the tools', load_agentbase: false do)
+      described_class.constants.each do |constant|
+        described_class.send(:remove_const, constant)
+      end
 
       described_class.source = Rails.root.join('app', 'agent_base', 'tools')
       described_class.load
-      expect(described_class.constants).to include(:User)
+      expect(described_class.constants).to include(:UserTools)
     end
   end
 

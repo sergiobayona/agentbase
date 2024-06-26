@@ -15,7 +15,5 @@ module AgentBase::Tools
         render json: @user.errors
       end
     end
-
-    # Instructions.for(:show).(params: [{ user_id:, desc: 'The id of the user' }])
   end
 end

@@ -3,7 +3,6 @@ module AgentBase
     class Base
       def render(json: nil, template: nil)
         template ||= infer_template_name
-        binding.pry
       end
 
       private

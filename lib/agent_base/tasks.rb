@@ -24,10 +24,6 @@ module AgentBase
         task_definitions.instance_eval(&block)
         task_definitions
       end
-
-      # def load
-      #   require source
-      # end
     end
   end
 end
