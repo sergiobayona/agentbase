@@ -4,24 +4,41 @@ require 'spec_helper'
 
 RSpec.describe AgentBase::Tools do
   describe 'load' do
-    it 'loads all the tools', load_agentbase: false do)
-      described_class.constants.each do |constant|
-        described_class.send(:remove_const, constant)
-      end
-
+    it 'loads all the tools', load_agentbase: false do
       described_class.source = Rails.root.join('app', 'agent_base', 'tools')
       described_class.load
-      expect(described_class.constants).to include(:UserTools)
+      expect(described_class.constants).to include(:User)
     end
   end
 
   describe 'Base' do
     let!(:user) { User.create!(name: 'John Doe', email: 'joe@test.com', password: 'password') }
 
-    it 'is a class' do
+    before do
+      require 'agent_base/engine'
+    end
+
+    it 'returns json schema' do
       described_class.load
-      user_tools = AgentBase::Tools::UserTools.new
-      user_tools.show(user.id)
+      user_tools = AgentBase::Tools::User.new
+      binding.pry
+      expect(user_tools.show(user.id)).to include_json({
+                                                         "type": 'function',
+                                                         "function": {
+                                                           "name": 'User.show',
+                                                           "description": 'retrieve a user record',
+                                                           "parameters": {
+                                                             "type": 'object',
+                                                             "properties": {
+                                                               "user_id": {
+                                                                 "type": 'string',
+                                                                 "description": 'The user identifier'
+                                                               }
+                                                             },
+                                                             "required": ['user_id']
+                                                           }
+                                                         }
+                                                       })
     end
   end
 end

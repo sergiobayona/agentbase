@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AgentBase::Tools
-  class UserTools < Base
+  class User < Base
     def show(user_id)
       @user = AgentBase::Models::User.find(user_id)
       render json: @user

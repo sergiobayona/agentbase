@@ -21,8 +21,25 @@ RSpec.describe AgentBase::Task do
       expect(tasks.tasks.size).to eq(3)
     end
 
-    it "initializes the tasks with the 'Display the user information' task" do
-      expect(tasks.tasks).to have_key('display_the_user_information')
+  end
+
+  describe "#all" do
+    it "returns a hash of tasks" do
+      expect(tasks.all).to be_a(Hash)
+    end
+
+    it "has keys as strings"do
+    expect(tasks.all.keys).to eq(["display_the_user_information", "create_a_new_user", "authenticate_a_user"])
+    end
+
+    it "has tasks as values" do
+      expect(tasks.all.values).to all(be_a(AgentBase::Task))
+    end
+  end
+
+  describe "#[]" do
+    it "returns a task" do
+      expect(tasks['display_the_user_information']).to be_a(AgentBase::Task)
     end
   end
 end

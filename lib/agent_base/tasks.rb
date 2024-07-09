@@ -4,6 +4,8 @@ module AgentBase
   class Tasks
     attr_reader :tasks
 
+    alias_method :all, :tasks
+
     def initialize
       @tasks = {}
     end
@@ -14,6 +16,10 @@ module AgentBase
 
       name = description.squeeze.downcase.gsub(' ', '_')
       @tasks[name] = Task.new(description:, options:)
+    end
+
+    def [](name)
+      all[name]
     end
 
     class << self
