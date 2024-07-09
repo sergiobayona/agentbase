@@ -2,43 +2,33 @@
 
 require 'spec_helper'
 
-RSpec.describe AgentBase::Tools do
-  describe 'load' do
-    it 'loads all the tools', load_agentbase: false do
-      described_class.source = Rails.root.join('app', 'agent_base', 'tools')
-      described_class.load
-      expect(described_class.constants).to include(:User)
+RSpec.describe AgentBase::Tools, load_agentbase: false do
+  before { AgentBase::Tools.reset }
+
+  describe '.load' do
+    it 'loads all files in the source directory' do
+      source = File.expand_path('fixtures/tools', __dir__)
+      AgentBase::Tools.source = source
+      expect { AgentBase::Tools.load_tools }.to change { AgentBase::Tools.constants.size }.by(1)
     end
   end
 
-  describe 'Base' do
-    let!(:user) { User.create!(name: 'John Doe', email: 'joe@test.com', password: 'password') }
+  it "returns all the loaded tools" do
+    source = File.expand_path('fixtures/tools', __dir__)
+    AgentBase::Tools.source = source
 
-    before do
-      require 'agent_base/engine'
-    end
+    AgentBase::Tools.load_tools
+    tools = AgentBase::Tools.all
 
-    it 'returns json schema' do
-      described_class.load
-      user_tools = AgentBase::Tools::User.new
-      binding.pry
-      expect(user_tools.show(user.id)).to include_json({
-                                                         "type": 'function',
-                                                         "function": {
-                                                           "name": 'User.show',
-                                                           "description": 'retrieve a user record',
-                                                           "parameters": {
-                                                             "type": 'object',
-                                                             "properties": {
-                                                               "user_id": {
-                                                                 "type": 'string',
-                                                                 "description": 'The user identifier'
-                                                               }
-                                                             },
-                                                             "required": ['user_id']
-                                                           }
-                                                         }
-                                                       })
-    end
+    expect(tools).to eq([AgentBase::Tools::Hammer])
+    expect(tools.first).to be < AgentBase::Tools::Base
+  end
+
+  it "resets the loaded tools" do
+    source = File.expand_path('fixtures/tools', __dir__)
+    AgentBase::Tools.source = source
+
+    AgentBase::Tools.load_tools
+    expect { AgentBase::Tools.reset }.to change { AgentBase::Tools.constants.size }.by(-1)
   end
 end
