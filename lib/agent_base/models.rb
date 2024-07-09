@@ -7,7 +7,7 @@ module AgentBase
     class << self
       attr_accessor :source
 
-      def load
+      def load_models
         Dir.glob("#{source}/*.rb").each do |file|
           require file
         end
