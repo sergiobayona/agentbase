@@ -7,7 +7,6 @@ module AgentBase
     def initialize
       Tools.load_tools
       Models.load_models
-      # Tasks.load
 
       @config = ::AgentBase::Configuration.new
     end

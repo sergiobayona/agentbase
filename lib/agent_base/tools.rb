@@ -3,6 +3,7 @@ module AgentBase
     extend ActiveSupport::Autoload
 
     autoload :Base
+    autoload :Task
 
     class << self
       attr_accessor :source
