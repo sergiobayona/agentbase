@@ -10,7 +10,6 @@ module AgentBase
       AgentBase::Models.source = Rails.root.join('app/agent_base/models')
 
       AgentBase::Application.new # start the application
-      require Rails.root.join('app/agent_base/tasks.rb')
     end
   end
 end
