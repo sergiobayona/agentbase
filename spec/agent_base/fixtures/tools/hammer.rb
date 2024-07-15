@@ -9,7 +9,7 @@ module AgentBase::Tools
     end
 
     # Find a hammer by name.
-    # @param name [String] the name of the hammer to find.
+    # @param name [String] The name of the hammer to find.
     def find(name:)
       @hammer = OpenStruct.new(name:, weight: 2.5, material: 'steel')
     end

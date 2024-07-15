@@ -1,23 +1,19 @@
-require_relative '../renderable'
+require_relative 'task'
 module AgentBase
   module Tools
     class Base
-      include AgentBase::Renderable
-
       def self.tasks
-        self.instance_methods(false)
+        instance_methods(false)
       end
 
       def self.name
-        self.to_s.split('::').last
+        to_s.split('::').last
       end
 
       def self.[](task)
-        if tasks.include?(task)
-          Task.new(self, task)
-        else
-          raise "Task not found"
-        end
+        raise 'Task not found' unless tasks.include?(task)
+
+        Task.new(self, task)
       end
     end
   end

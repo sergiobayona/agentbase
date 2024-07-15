@@ -4,23 +4,33 @@ require 'spec_helper'
 require_relative '../../lib/agent_base/schema_generator'
 
 RSpec.describe AgentBase::SchemaGenerator do
+  before do
+    AgentBase::Tools.reset
+
+    source = File.expand_path('fixtures/tools', __dir__)
+    AgentBase::Tools.source = source
+    AgentBase::Tools.load_tools
+  end
+
   describe '#generate' do
     let(:tool) { AgentBase::Tools::Hammer }
-    let(:task) { :smack }
-    let(:schema) { AgentBase::SchemaGenerator.new(tool, name).generate }
+    let(:task) { :find }
+    let(:schema) { AgentBase::SchemaGenerator.new(tool, task).generate }
 
     it 'returns the schema for the task' do
       expect(schema).to eq(
-        type: 'object',
-        description: 'Smack something with a hammer',
-        properties: {
-          force: {
-            type: 'Integer',
-            description: 'The force with which to smack'
-          },
-          something: {
-            type: 'String',
-            description: 'Something to smack'
+        type: 'function',
+        function: {
+          name: 'find_hammer',
+          description: 'Find a hammer by name.',
+          parameters: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'String',
+                description: 'The name of the hammer to find.'
+              }
+            }
           }
         }
       )

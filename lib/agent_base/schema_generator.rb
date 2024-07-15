@@ -1,18 +1,38 @@
 module AgentBase
   class SchemaGenerator
-    def initialize(tool, name)
+    def initialize(tool, task)
       @tool = tool
-      @name = name
+      @task = task
     end
 
     def generate
-      task = @tool.instance_method(@name)
-      params = task.parameters
-      schema = { type: 'object', properties: {} }
+      task = @tool[@task]
+      params = task.params
+      schema = {
+        type: 'function',
+        function: {
+          name: function_name,
+          description: task.description,
+          parameters: {
+            type: 'object',
+            properties: {}
+          }
+        }
+      }
+
       params.each do |param|
-        schema[:properties][param[1]] = { type: param[0].to_s }
+        name = param[:name].to_sym
+        schema[:function][:parameters][:properties][name] = {
+          type: param[:type],
+          description: param[:description]
+        }
       end
+
       schema
+    end
+
+    def function_name
+      "#{@task.name}_#{@tool.name}".downcase
     end
   end
 end
