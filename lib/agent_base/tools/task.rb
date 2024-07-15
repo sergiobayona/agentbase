@@ -9,7 +9,12 @@ module AgentBase
 
     def description
       # get the description of the task from the tool.
-      tool.new.method(name).description
+      tool.instance_method(name).description
+    end
+
+    def params
+      # get the params of the task from the tool.
+      tool.instance_method(name).params
     end
   end
 end

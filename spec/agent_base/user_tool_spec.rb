@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AgentBase::UserTool do
+RSpec.describe 'AgentBase::UserTool' do
   describe 'load' do
     it 'loads all the tools', load_agentbase: false do
       described_class.source = Rails.root.join('app', 'agent_base', 'tools')
