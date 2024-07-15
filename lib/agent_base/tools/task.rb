@@ -1,3 +1,4 @@
+require_relative '../schema_generator'
 module AgentBase
   class Task
     attr_reader :tool, :name
@@ -15,6 +16,10 @@ module AgentBase
     def params
       # get the params of the task from the tool.
       tool.instance_method(name).params
+    end
+
+    def schema
+      SchemaGenerator.new(tool, name).generate
     end
   end
 end

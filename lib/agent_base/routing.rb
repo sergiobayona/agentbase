@@ -1,21 +1,21 @@
 module AgentBase
-  Task = Data.define(:description, :options)
+  Route = Data.define(:description, :options)
 
-  class Tasks
-    attr_reader :tasks
+  class Routing
+    attr_reader :routes
 
-    alias_method :all, :tasks
+    alias all routes
 
     def initialize
-      @tasks = {}
+      @routes = {}
     end
 
-    def task(description, **options)
+    def route(description, **options)
       raise ArgumentError, 'description must be a string' unless description.is_a?(String)
       raise ArgumentError, 'options must be a hash' unless options.is_a?(Hash)
 
       name = description.squeeze.downcase.gsub(' ', '_')
-      @tasks[name] = Task.new(description:, options:)
+      @routes[name] = Route.new(description:, options:)
     end
 
     def [](name)
@@ -26,9 +26,9 @@ module AgentBase
       attr_accessor :source
 
       def draw(&block)
-        task_definitions = new
-        task_definitions.instance_eval(&block)
-        task_definitions
+        route_definitions = new
+        route_definitions.instance_eval(&block)
+        route_definitions
       end
     end
   end
