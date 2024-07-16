@@ -25,6 +25,7 @@ RSpec.describe AgentBase::SchemaGenerator do
           description: 'Find a hammer by name.',
           parameters: {
             type: 'object',
+            required: ['name'],
             properties: {
               name: {
                 type: 'String',

@@ -1,38 +1,40 @@
 module AgentBase
   class SchemaGenerator
+    attr_reader :tool, :task
+
     def initialize(tool, task)
       @tool = tool
       @task = task
     end
 
     def generate
-      task = @tool[@task]
-      params = task.params
+      task_details = tool[task]
       schema = {
         type: 'function',
         function: {
           name: function_name,
-          description: task.description,
-          parameters: {
-            type: 'object',
-            properties: {}
-          }
+          description: task_details.description,
+          parameters: generate_parameters_schema(task_details.params)
         }
       }
+    end
 
-      params.each do |param|
+    private
+
+    def generate_parameters_schema(params)
+      params.each_with_object(type: 'object', properties: {}, required: []) do |param, schema|
         name = param[:name].to_sym
-        schema[:function][:parameters][:properties][name] = {
+        schema[:properties][name] = {
           type: param[:type],
           description: param[:description]
         }
+        schema[:required] << name.to_s # if param[:required]
+        schema
       end
-
-      schema
     end
 
     def function_name
-      "#{@task.name}_#{@tool.name}".downcase
+      "#{task.name}_#{tool.name}".downcase
     end
   end
 end
