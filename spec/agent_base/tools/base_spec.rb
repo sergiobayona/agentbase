@@ -6,7 +6,7 @@ RSpec.describe AgentBase::Tools::Base, load_agentbase: false do
   before do
     source = File.expand_path('../fixtures/tools', __dir__)
     AgentBase::Tools.source = source
-    AgentBase::Tools.load_tools
+    AgentBase::Tools.load
   end
 
   it 'displays all the tasks for a given tool' do

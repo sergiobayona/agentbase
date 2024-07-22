@@ -2,19 +2,13 @@
 
 module AgentBase
   class Assistant
-    def initialize(configuration)
+    def initialize(configuration, parameters)
       @client = configuration.client.new
+      @parameters = parameters
     end
 
     def create
-      @client.asistants.create(
-        parameters: {
-          model: 'gpt-4o',
-          name: 'Customer Service Assistant',
-          description: 'This assistant is designed to help customers with their questions and concerns.',
-          tools: []
-        }
-      )
+      @client.asistants.create(parameters: parameters)
     end
 
     def routing_tool; end

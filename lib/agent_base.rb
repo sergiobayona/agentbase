@@ -13,6 +13,8 @@ module AgentBase
   autoload :Application
   autoload :Tools
   autoload :Models
+  autoload :SchemaGenerator
+  autoload :Task
 
   def self.root
     File.expand_path '..', __dir__

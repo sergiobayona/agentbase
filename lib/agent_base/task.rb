@@ -1,4 +1,3 @@
-require_relative '../schema_generator'
 module AgentBase
   class Task
     attr_reader :tool, :name

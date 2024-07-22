@@ -1,6 +1,15 @@
+require 'active_support'
 module AgentBase
   module Tools
     class Base
+      def initialize
+        AgentBase::Tools.load
+      end
+
+      def all
+        self.class.descendants
+      end
+
       def self.tasks
         instance_methods(false)
       end
