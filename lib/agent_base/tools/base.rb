@@ -1,4 +1,3 @@
-require_relative 'task'
 module AgentBase
   module Tools
     class Base

@@ -41,7 +41,7 @@ RSpec.describe AgentBase::Tools::Base, load_agentbase: false do
 
     it 'returns the params' do
       params = AgentBase::Tools::Hammer[:find].params
-      expect(params).to eq([{ description: 'the name of the hammer to find.', name: 'name', type: 'String' }])
+      expect(params).to eq([{ description: 'The name of the hammer to find.', name: 'name', type: 'String' }])
     end
   end
 

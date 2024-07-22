@@ -5,7 +5,6 @@ require_relative '../../lib/agent_base/schema_generator'
 
 RSpec.describe AgentBase::SchemaGenerator do
   before do
-    AgentBase::Tools.reset
 
     source = File.expand_path('fixtures/tools', __dir__)
     AgentBase::Tools.source = source
