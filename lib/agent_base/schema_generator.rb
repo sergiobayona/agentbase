@@ -22,6 +22,8 @@ module AgentBase
     private
 
     def generate_parameters_schema(params)
+      raise ArgumentError, 'Params must be an array' unless params.is_a?(Array)
+
       params.each_with_object(type: 'object', properties: {}, required: []) do |param, schema|
         name = param[:name].to_sym
         schema[:properties][name] = {

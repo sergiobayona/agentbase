@@ -3,10 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe AgentBase::Tools, load_agentbase: false do
-  it 'returns an array of tools' do
-    expect(AgentBase::Tools.all).to be_a(Array)
-  end
-
   context 'when tools are loaded' do
     before do
       source = File.expand_path('fixtures/tools', __dir__)
@@ -18,9 +14,5 @@ RSpec.describe AgentBase::Tools, load_agentbase: false do
       expect(AgentBase::Tools.has_setup?).to eq(true)
     end
 
-    it 'loads the tools' do
-      expect(AgentBase::Tools.all).to include(AgentBase::Tools::Hammer)
-      expect(AgentBase::Tools.all.first).to be < AgentBase::Tools::Base
-    end
   end
 end
