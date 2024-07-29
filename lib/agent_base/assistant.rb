@@ -11,11 +11,5 @@ module AgentBase
       @client.asistants.create(parameters: parameters)
     end
 
-    def routing_tool; end
-
-    def request(message)
-      request = RequestRouter.new
-      request.route(message)
-    end
   end
 end

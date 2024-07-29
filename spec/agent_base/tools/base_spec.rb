@@ -9,8 +9,16 @@ RSpec.describe AgentBase::Tools::Base, load_agentbase: false do
     AgentBase::Tools.load
   end
 
-  it 'displays all the tasks for a given tool' do
-    expect(AgentBase::Tools::Hammer.tasks).to eq(%i[smack show find])
+  it 'returns a hash of all tasks' do
+    expect(AgentBase::Tools::Hammer.tasks).to be_a(Hash)
+  end
+
+  it 'has keys as names of tasks' do
+    expect(AgentBase::Tools::Hammer.tasks.keys).to eq(%i[smack show find])
+  end
+
+  it 'has values as instances of Task' do
+    expect(AgentBase::Tools::Hammer.tasks.values).to all(be_a(AgentBase::Task))
   end
 
   it "displays the tool's name" do
