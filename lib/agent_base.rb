@@ -15,6 +15,7 @@ module AgentBase
   autoload :Models
   autoload :SchemaGenerator
   autoload :Task
+  autoload :Assistant
 
   def self.root
     File.expand_path '..', __dir__

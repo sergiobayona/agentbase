@@ -1,15 +1,27 @@
-# frozen_string_literal: true
-
 module AgentBase
   class Assistant
-    def initialize(configuration, parameters)
-      @client = configuration.client.new
-      @parameters = parameters
+    attr_reader :config, :tools, :client
+
+    def initialize(config, tools)
+      @config = config
+      @tools = tools
+      @client = initialize_client
     end
 
-    def create
-      @client.asistants.create(parameters: parameters)
+    def chat(message)
+      client.chat(
+        parameters: {
+          model: config.model,
+          messages: [{ role: 'user', content: message }],
+          functions: tools.to_schema
+        }
+      )
     end
 
+    private
+
+    def initialize_client
+      config.client.new(access_token: config.api_key, log_errors: config.log_errors)
+    end
   end
 end

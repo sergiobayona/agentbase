@@ -5,15 +5,14 @@ module AgentBase
     attr_accessor :config
 
     def initialize
-      @tools = Tools::Base.new
       @config = Configuration.new
+      @tools = Tools::Base.new
+      @assistant = Assistant.new(@config, @tools)
     end
 
-    attr_reader :tools
+    attr_reader :tools, :assistant
 
-    def help(message)
-      assistant = AgentBase::Assistant.new(@config)
-      assistant.request(message)
-    end
+    delegate :client, :model, to: :config
+
   end
 end
