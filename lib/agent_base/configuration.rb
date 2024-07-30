@@ -4,7 +4,7 @@ require 'agent_base/clients/openai'
 
 module AgentBase
   class Configuration
-    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id
+    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :assistants_path
 
     def initialize(options = {})
       @options = options.dup
@@ -15,6 +15,7 @@ module AgentBase
       @api_key = @options.fetch(:api_key, default_client_key)
       @log_errors = @options.fetch(:log_errors, true)
       @organization_id = @options.fetch(:organization_id, default_organization_id)
+      @assistants_path = @options.fetch(:assistants_path, 'app/assistants')
     end
 
     class << self
@@ -44,6 +45,10 @@ module AgentBase
 
       def organization_id
         settings.organization_id
+      end
+
+      def assistants_path
+        settings.assistants_path
       end
 
       def configure
@@ -77,6 +82,10 @@ module AgentBase
 
     def organization_id=(organization_id)
       @organization_id = @options[:organization_id] = organization_id
+    end
+
+    def assistants_path=(assistants_path)
+      @assistants_path = @options[:assistants_path] = assistants_path
     end
 
     def default_client

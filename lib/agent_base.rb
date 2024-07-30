@@ -15,6 +15,7 @@ module AgentBase
   autoload :Models
   autoload :SchemaGenerator
   autoload :Task
+  autoload :Assistants
   autoload :Assistant
 
   def self.root
