@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AgentBase::Task, load_agentbase: false do
+RSpec.describe AgentBase::Task do
   subject(:task) { AgentBase::Tools::Hammer[:find] }
 
   before do

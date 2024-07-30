@@ -28,10 +28,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
-
-  config.before do |example|
-    require 'agent_base/engine' unless example.metadata[:load_agentbase] == false
-  end
 end
 
 VCR.configure do |config|

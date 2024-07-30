@@ -1,7 +1,7 @@
-module AgentBase::Tools
-  class Assistant < Base
+module Customer
+  class Assistant < AgentBase::Assistant
     def name
-      'Client Assistant'
+      'Customer Support Assistant'
     end
 
     def instructions

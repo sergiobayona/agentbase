@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AgentBase::Tools::Base, load_agentbase: false do
+RSpec.describe AgentBase::Tools::Base do
   before do
     source = File.expand_path('../fixtures/tools', __dir__)
     AgentBase::Tools.source = source
