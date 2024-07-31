@@ -12,10 +12,6 @@ require 'database_cleaner/active_record'
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('dummy/config/environment', __dir__)
-ActiveRecord::Migrator.migrations_paths = [File.expand_path('../spec/dummy/db/migrate', __dir__)]
-ActiveRecord::Migrator.migrations_paths << File.expand_path('../db/migrate', __dir__)
-# Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 DatabaseCleaner.strategy = :truncation
 

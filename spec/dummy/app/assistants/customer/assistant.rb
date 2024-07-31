@@ -1,15 +1,21 @@
 module Customer
   class Assistant < AgentBase::Assistant
-    def name
-      'Customer Support Assistant'
-    end
+    class << self
+      def name
+        'customer_assistant'
+      end
 
-    def instructions
-      'This assistant is used to communicate with clients.'
-    end
+      def title
+        'Customer Support Assistant'
+      end
 
-    def tools
-      %i[CustomerCommunication CustomerManagement CustomerFeedback]
+      def description
+        'This assistant is used to communicate with clients.'
+      end
+
+      def tools
+        %w[communication management feedback]
+      end
     end
   end
 end

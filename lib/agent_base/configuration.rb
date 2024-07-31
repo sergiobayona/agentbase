@@ -4,7 +4,8 @@ require 'agent_base/clients/openai'
 
 module AgentBase
   class Configuration
-    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :assistants_path
+    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :assistants_path,
+                :assistant_file_name
 
     def initialize(options = {})
       @options = options.dup
@@ -15,7 +16,8 @@ module AgentBase
       @api_key = @options.fetch(:api_key, default_client_key)
       @log_errors = @options.fetch(:log_errors, true)
       @organization_id = @options.fetch(:organization_id, default_organization_id)
-      @assistants_path = @options.fetch(:assistants_path, 'app/assistants')
+      @assistants_path = @options.fetch(:assistants_path, default_assistants_path)
+      @assistant_file_name = @options.fetch(:assistant_file_name, default_assistant_file_name)
     end
 
     class << self
@@ -49,6 +51,10 @@ module AgentBase
 
       def assistants_path
         settings.assistants_path
+      end
+
+      def assistant_file_name
+        settings.assistant_file_name
       end
 
       def configure
@@ -88,6 +94,10 @@ module AgentBase
       @assistants_path = @options[:assistants_path] = assistants_path
     end
 
+    def assistant_file_name=(assistant_file_name)
+      @assistant_file_name = @options[:assistant_file_name] = assistant_file_name
+    end
+
     def default_client
       AgentBase::Clients::OpenAI.client
     end
@@ -102,6 +112,14 @@ module AgentBase
 
     def default_organization_id
       ENV['OPENAI_ORGANIZATION_ID']
+    end
+
+    def default_assistants_path
+      'app/assistants'
+    end
+
+    def default_assistant_file_name
+      'assistant.rb'
     end
   end
 end

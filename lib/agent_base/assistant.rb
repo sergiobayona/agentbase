@@ -2,9 +2,9 @@ module AgentBase
   class Assistant
     attr_reader :config, :tools, :client, :model, :name
 
-    def initialize(config, tools)
+    def initialize(config)
       @config = config
-      @tools = tools
+      @tools = gather_tools
       @client = initialize_client
       @name = name
     end
