@@ -11,9 +11,9 @@ RSpec.describe AgentBase::SchemaGenerator do
   end
 
   describe '#generate' do
-    let(:tool) { AgentBase::Tools::Hammer }
+    let(:toolset) { Hammer }
     let(:task) { :find }
-    let(:schema) { AgentBase::SchemaGenerator.new(tool, task).generate }
+    let(:schema) { AgentBase::SchemaGenerator.new(toolset, task).generate }
 
     it 'returns the schema for the task' do
       expect(schema).to eq(

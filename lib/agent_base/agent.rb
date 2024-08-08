@@ -1,5 +1,5 @@
 module AgentBase
-  class Assistant
+  class Agent
     attr_reader :config, :tools, :client, :model, :name
 
     def initialize(config)
@@ -15,13 +15,23 @@ module AgentBase
           name:,
           model:,
           messages: [{ role: 'user', content: message }],
-          functions: tools.to_schema
+          functions: tools.all
         }
       )
     end
 
+    def path
+      binding.pry
+    end
+
     def model
       config.model
+    end
+
+    def gather_tools
+      self.class.tools.each do |tool|
+        binding.pry
+      end
     end
 
     private

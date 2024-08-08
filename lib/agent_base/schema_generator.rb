@@ -1,14 +1,14 @@
 module AgentBase
   class SchemaGenerator
-    attr_reader :tool, :task
+    attr_reader :toolset, :task
 
-    def initialize(tool, task)
-      @tool = tool
+    def initialize(toolset, task)
+      @toolset = toolset
       @task = task
     end
 
     def generate
-      task_details = tool[task]
+      task_details = toolset[task]
       schema = {
         type: 'function',
         function: {
@@ -36,7 +36,7 @@ module AgentBase
     end
 
     def function_name
-      "#{task.name}_#{tool.name}".downcase
+      "#{task.name}_#{toolset.name}".downcase
     end
   end
 end

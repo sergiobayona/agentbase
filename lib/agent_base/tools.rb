@@ -12,10 +12,6 @@ module AgentBase
           super file
         end
       end
-
-      def has_setup?
-        constants.include?(:Setup)
-      end
     end
   end
 end

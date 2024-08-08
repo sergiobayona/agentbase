@@ -1,24 +1,24 @@
 module AgentBase
   class Task
-    attr_reader :tool, :name
+    attr_reader :toolset, :name
 
-    def initialize(tool, name)
-      @tool = tool
+    def initialize(toolset, name)
+      @toolset = toolset
       @name = name
     end
 
-    # get the description of the task from the tool.
+    # get the description of the task from the toolset.
     def description
-      tool.instance_method(name).description
+      toolset.instance_method(name).description
     end
 
-    # returns the params of the task from the tool.
+    # returns the params of the task from the toolset.
     def params
-      tool.instance_method(name).params
+      toolset.instance_method(name).params
     end
 
     def schema
-      SchemaGenerator.new(tool, name).generate
+      SchemaGenerator.new(toolset, name).generate
     end
   end
 end

@@ -1,5 +1,5 @@
 module Customer
-  class Assistant < AgentBase::Assistant
+  class Agent < AgentBase::Agent
     class << self
       def name
         'customer_assistant'
@@ -9,8 +9,8 @@ module Customer
         'Customer Support Assistant'
       end
 
-      def description
-        'This assistant is used to communicate with clients.'
+      def instructions
+        'You are a customer assistant. Use the provided functions to answer questions.'
       end
 
       def tools

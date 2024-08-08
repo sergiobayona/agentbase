@@ -4,8 +4,8 @@ require 'agent_base/clients/openai'
 
 module AgentBase
   class Configuration
-    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :assistants_path,
-                :assistant_file_name
+    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :agents_path,
+                :agent_file_name
 
     def initialize(options = {})
       @options = options.dup
@@ -16,8 +16,8 @@ module AgentBase
       @api_key = @options.fetch(:api_key, default_client_key)
       @log_errors = @options.fetch(:log_errors, true)
       @organization_id = @options.fetch(:organization_id, default_organization_id)
-      @assistants_path = @options.fetch(:assistants_path, default_assistants_path)
-      @assistant_file_name = @options.fetch(:assistant_file_name, default_assistant_file_name)
+      @agents_path = @options.fetch(:agents_path, default_agents_path)
+      @agent_file_name = @options.fetch(:agent_file_name, default_agent_file_name)
     end
 
     class << self
@@ -49,12 +49,12 @@ module AgentBase
         settings.organization_id
       end
 
-      def assistants_path
-        settings.assistants_path
+      def agents_path
+        settings.agents_path
       end
 
-      def assistant_file_name
-        settings.assistant_file_name
+      def agent_file_name
+        settings.agent_file_name
       end
 
       def configure
@@ -90,12 +90,12 @@ module AgentBase
       @organization_id = @options[:organization_id] = organization_id
     end
 
-    def assistants_path=(assistants_path)
-      @assistants_path = @options[:assistants_path] = assistants_path
+    def agents_path=(agents_path)
+      @agents_path = @options[:agents_path] = agents_path
     end
 
-    def assistant_file_name=(assistant_file_name)
-      @assistant_file_name = @options[:assistant_file_name] = assistant_file_name
+    def agent_file_name=(agent_file_name)
+      @agent_file_name = @options[:agent_file_name] = agent_file_name
     end
 
     def default_client
@@ -114,12 +114,12 @@ module AgentBase
       ENV['OPENAI_ORGANIZATION_ID']
     end
 
-    def default_assistants_path
-      'app/assistants'
+    def default_agents_path
+      'app/agents'
     end
 
-    def default_assistant_file_name
-      'assistant.rb'
+    def default_agent_file_name
+      'agent.rb'
     end
   end
 end
