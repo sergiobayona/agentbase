@@ -16,7 +16,7 @@ RSpec.describe AgentBase::Configuration do
       expect(configuration.model).to eq('gpt-3.5-turbo')
       expect(configuration.log_errors).to eq(true)
       expect(configuration.organization_id).to be_nil
-      expect(configuration.assistants_path).to eq('app/assistants')
+      expect(configuration.agents_path).to eq('app/agents')
     end
 
     it 'sets the custom values if provided' do
@@ -26,14 +26,14 @@ RSpec.describe AgentBase::Configuration do
         model: 'gpt-4o-turbo',
         client_retries: 5,
         log_errors: false,
-        assistants_path: 'app/custom/path'
+        agents_path: 'app/custom/path'
       )
       expect(configuration.client).to eq(custom_client)
       expect(configuration.api_key).to eq('abc123')
       expect(configuration.model).to eq('gpt-4o-turbo')
       expect(configuration.client_retries).to eq(5)
       expect(configuration.log_errors).to eq(false)
-      expect(configuration.assistants_path).to eq('app/custom/path')
+      expect(configuration.agents_path).to eq('app/custom/path')
     end
 
     it 'yields self if a block is given' do
@@ -52,7 +52,7 @@ RSpec.describe AgentBase::Configuration do
         config.client_retries = 5
         config.log_errors = false
         config.organization_id = 'org_123'
-        config.assistants_path = 'app/custom/path'
+        config.agents_path = 'app/custom/path'
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe AgentBase::Configuration do
       expect(described_class.settings.client_retries).to eq(5)
       expect(described_class.settings.log_errors).to eq(false)
       expect(described_class.settings.organization_id).to eq('org_123')
-      expect(described_class.settings.assistants_path).to eq('app/custom/path')
+      expect(described_class.settings.agents_path).to eq('app/custom/path')
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe AgentBase::Configuration do
       expect(described_class.settings.client_retries).to eq(1)
       expect(described_class.settings.log_errors).to eq(true)
       expect(described_class.settings.organization_id).to be_nil
-      expect(described_class.settings.assistants_path).to eq('app/assistants')
+      expect(described_class.settings.agents_path).to eq('app/agents')
     end
   end
 end

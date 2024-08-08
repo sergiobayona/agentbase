@@ -6,10 +6,10 @@ module AgentBase
 
     def initialize
       @config = Configuration.new
-      @assistants = Assistants.new(@config)
+      @agents = Agents.new(@config)
     end
 
-    attr_reader :assistants
+    attr_reader :agents
 
     delegate :client, :model, to: :config
   end

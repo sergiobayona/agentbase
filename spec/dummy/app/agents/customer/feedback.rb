@@ -1,5 +1,5 @@
 module Customer
-  class Feedback < AgentBase::Tools::Base
+  class Feedback < AgentBase::ToolSet
     # Sends a feedback email to customers.
     # @param customer_id [Integer] the id of the customer to email.
     def receive_feedback(customer_id:, feedback:)

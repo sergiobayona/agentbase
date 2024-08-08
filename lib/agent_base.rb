@@ -12,11 +12,12 @@ module AgentBase
   autoload :Configuration
   autoload :Application
   autoload :Tools
+  autoload :ToolSet
   autoload :Models
   autoload :SchemaGenerator
   autoload :Task
-  autoload :Assistants
-  autoload :Assistant
+  autoload :Agents
+  autoload :Agent
 
   def self.root
     File.expand_path '..', __dir__

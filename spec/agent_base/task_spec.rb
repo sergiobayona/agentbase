@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe AgentBase::Task do
-  subject(:task) { AgentBase::Tools::Hammer[:find] }
+  subject(:task) { Hammer[:find] }
 
   before do
     source = File.expand_path('fixtures/tools', __dir__)
@@ -16,7 +16,7 @@ RSpec.describe AgentBase::Task do
   end
 
   it "returns the task's tool" do
-    expect(task.tool).to eq(AgentBase::Tools::Hammer)
+    expect(task.toolset).to eq(Hammer)
   end
 
   it "returns the task's description" do
