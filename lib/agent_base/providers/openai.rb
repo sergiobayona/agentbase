@@ -3,7 +3,7 @@
 require 'instructor'
 
 module AgentBase
-  module Clients
+  module Providers
     module OpenAI
       def self.client
         ::OpenAI::Client
