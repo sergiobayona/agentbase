@@ -17,23 +17,6 @@ RSpec.describe AgentBase::Agent do
     end
   end
 
-  describe '#chat' do
-    it 'sends a chat message to the client' do
-      allow(agent).to receive(:tools).and_return(double(all: []))
-      allow(agent).to receive(:name).and_return('AgentName')
-      allow(agent).to receive(:model).and_return('test-model')
-      expect(client_instance).to receive(:chat).with(
-        parameters: {
-          name: 'AgentName',
-          model: 'test-model',
-          messages: [{ role: 'user', content: 'Hello' }],
-          functions: []
-        }
-      )
-      agent.chat('Hello')
-    end
-  end
-
   describe '#name' do
     it 'returns the class name' do
       expect(agent.name).to eq(described_class.name)

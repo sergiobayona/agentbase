@@ -1,21 +1,10 @@
 module AgentBase
   class Agent
-    attr_reader :config, :tools, :client, :model
+    attr_reader :config, :toolset, :client, :model
 
     def initialize(config)
       @config = config
       @client = initialize_client
-    end
-
-    def chat(message)
-      client.chat(
-        parameters: {
-          name:,
-          model:,
-          messages: [{ role: 'user', content: message }],
-          functions: tools.all
-        }
-      )
     end
 
     def name
@@ -30,8 +19,8 @@ module AgentBase
       self.class.instructions
     end
 
-    def tools
-      self.class.tools
+    def toolset
+      self.class.toolset
     end
 
     def model
@@ -39,7 +28,7 @@ module AgentBase
     end
 
     class << self
-      attr_reader :agent_name, :agent_title, :agent_instructions, :agent_tools
+      attr_reader :agent_name, :agent_title, :agent_instructions, :agent_toolset
 
       def name(value = nil)
         @agent_name = value if value
@@ -56,9 +45,9 @@ module AgentBase
         @agent_instructions || 'I am an AI assistant. How can I help you?'
       end
 
-      def tools(value = nil)
-        @agent_tools = value if value
-        @agent_tools || []
+      def toolset(value = nil)
+        @agent_toolset = value if value
+        @agent_toolset || []
       end
     end
 
