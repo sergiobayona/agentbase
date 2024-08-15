@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-require 'agent_base/clients/openai'
+require 'agent_base/providers/openai'
 
 module AgentBase
   class Configuration
-    attr_reader :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :agents_path,
+    attr_reader :provider, :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :agents_path,
                 :agent_file_name
 
     def initialize(options = {})
       @options = options.dup
       yield(self) if block_given?
+      @config_file = @options.fetch(:config_file, nil)
+      @provider = @options.fetch(:provider, :openai)
       @client_retries = @options.fetch(:client_retries, 1)
       @model = @options.fetch(:model, default_model)
       @client = @options.fetch(:client, default_client)
@@ -23,6 +25,10 @@ module AgentBase
     class << self
       def settings
         @settings ||= new
+      end
+
+      def provider
+        settings.provider
       end
 
       def client
@@ -66,6 +72,10 @@ module AgentBase
       end
     end
 
+    def provider=(provider)
+      @provider = @options[:provider] = provider
+    end
+
     def client=(client)
       @client = @options[:client] = client
     end
@@ -99,7 +109,7 @@ module AgentBase
     end
 
     def default_client
-      AgentBase::Clients::OpenAI.client
+      AgentBase::Providers::OpenAI.client
     end
 
     def default_model

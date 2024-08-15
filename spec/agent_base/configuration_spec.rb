@@ -13,6 +13,7 @@ RSpec.describe AgentBase::Configuration do
 
     it 'sets the default values if not provided' do
       configuration = described_class.new
+      expect(configuration.provider).to eq(:openai)
       expect(configuration.client_retries).to eq(1)
       expect(configuration.client).to eq(OpenAI::Client)
       expect(configuration.api_key).to eq('your_api_key')
@@ -25,6 +26,7 @@ RSpec.describe AgentBase::Configuration do
 
     it 'sets the custom values if provided' do
       configuration = described_class.new(
+        provider: :custom_provider,
         client: custom_client,
         api_key: 'abc123',
         model: 'gpt-4o-turbo',
@@ -34,6 +36,7 @@ RSpec.describe AgentBase::Configuration do
         agents_path: 'app/custom/path',
         agent_file_name: 'custom_agent.rb'
       )
+      expect(configuration.provider).to eq(:custom_provider)
       expect(configuration.client).to eq(custom_client)
       expect(configuration.api_key).to eq('abc123')
       expect(configuration.model).to eq('gpt-4o-turbo')
@@ -54,8 +57,9 @@ RSpec.describe AgentBase::Configuration do
   describe '#configure' do
     before do
       described_class.configure do |config|
-        config.api_key = 'abc123'
+        config.provider = :custom_provider
         config.client = custom_client
+        config.api_key = 'abc123'
         config.model = 'gpt-3.5-turbo-0613'
         config.client_retries = 5
         config.log_errors = false
@@ -66,8 +70,9 @@ RSpec.describe AgentBase::Configuration do
     end
 
     it 'sets the custom values' do
-      expect(described_class.settings.api_key).to eq('abc123')
+      expect(described_class.settings.provider).to eq(:custom_provider)
       expect(described_class.settings.client).to eq(custom_client)
+      expect(described_class.settings.api_key).to eq('abc123')
       expect(described_class.settings.model).to eq('gpt-3.5-turbo-0613')
       expect(described_class.settings.client_retries).to eq(5)
       expect(described_class.settings.log_errors).to eq(false)
@@ -80,6 +85,7 @@ RSpec.describe AgentBase::Configuration do
   describe '.reset' do
     before do
       described_class.configure do |config|
+        config.provider = :custom_provider
         config.client = custom_client
         config.model = 'custom_model'
         config.client_retries = 5
@@ -92,6 +98,7 @@ RSpec.describe AgentBase::Configuration do
 
     it 'resets the settings to default values' do
       described_class.reset
+      expect(described_class.settings.provider).to eq(:openai)
       expect(described_class.settings.client).to eq(OpenAI::Client)
       expect(described_class.settings.model).to eq('gpt-3.5-turbo')
       expect(described_class.settings.client_retries).to eq(1)
