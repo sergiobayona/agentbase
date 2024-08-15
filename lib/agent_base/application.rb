@@ -4,8 +4,8 @@ module AgentBase
   class Application
     attr_accessor :config
 
-    def initialize
-      @config = Configuration.new
+    def initialize(config_file = nil)
+      @config = Configuration.new({ config_file: })
       @agents = Agents.new(@config)
     end
 
