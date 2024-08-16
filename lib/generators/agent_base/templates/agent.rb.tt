@@ -1,0 +1,8 @@
+<% module_namespacing do -%>
+class <%= class_name %>Agent < AgentBase::Agent
+  name '<%= agent_name %>_assistant'
+  title '<%= agent_title %>'
+  instructions '<%= agent_instructions %>'
+  toolset %i[tool_name] # list the name of the tools for the agent to use.
+end
+<% end -%>

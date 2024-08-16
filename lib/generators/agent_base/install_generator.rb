@@ -35,7 +35,7 @@ module AgentBase
       say "\nAgentBase has been successfully installed!", :green
       say "\nNext steps:"
       say '1. Review and update the configuration in config/agents.rb'
-      say '2. Create your agent classes in the app/agents directory'
+      say '2. Create your agent classes in the app/agents directory. See the README for more information.'
       say '3. Use AgentBase in your Rails application'
       say "\nEnjoy building with AgentBase!", :green
     end
