@@ -21,12 +21,6 @@ RSpec.describe AgentBase::InstallGenerator, type: :generator do
     assert_directory 'app/agents'
   end
 
-  pending 'adds app/agents to autoload paths' do
-    assert_file 'config/application.rb' do |content|
-      assert_match(%r{config.autoload_paths \+= %W\(\#{config.root}/app/agents\)}, content)
-    end
-  end
-
   pending 'displays post-install message' do
     output = capture(:stdout) { run_generator }
     expect(output).to include('AgentBase has been successfully installed!')

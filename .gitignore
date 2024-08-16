@@ -36,3 +36,4 @@ build-iPhoneSimulator/
 /vendor/bundle
 /lib/bundler/man/
 .rvmrc
+.rspec_status

@@ -5,6 +5,7 @@ module AgentBase
     def initialize(config)
       @config = config
       @client = initialize_client
+      create_toolset
     end
 
     def name
@@ -55,6 +56,14 @@ module AgentBase
 
     def initialize_client
       config.client.new(access_token: config.api_key, log_errors: config.log_errors)
+    end
+
+    def create_toolset
+      toolset.each do |tool|
+        define_singleton_method(tool.name.downcase.to_sym) do
+          AgentBase::ToolSet.const_get(tool.name.to_sym)
+        end
+      end
     end
   end
 end

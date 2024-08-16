@@ -11,7 +11,6 @@ module AgentBase
 
   autoload :Configuration
   autoload :Application
-  autoload :Tools
   autoload :ToolSet
   autoload :Models
   autoload :SchemaGenerator

@@ -2,7 +2,7 @@ require 'spec_helper'
 require_relative '../../../../lib/generators/agent_base/agent_generator'
 
 RSpec.describe AgentBase::AgentGenerator, type: :generator do
-  destination File.expand_path('../../../tmp', __dir__)
+  destination File.expand_path('../../../../tmp', __dir__)
 
   before do
     prepare_destination
@@ -44,7 +44,7 @@ RSpec.describe AgentBase::AgentGenerator, type: :generator do
 
     context 'with a namespaced name' do
       before do
-        run_generator %w[Support::Customer]
+        run_generator %w[Customer]
       end
 
       pending 'creates the agent file in the correct directory' do

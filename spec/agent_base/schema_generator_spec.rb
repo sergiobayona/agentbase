@@ -2,14 +2,9 @@
 
 require 'spec_helper'
 require_relative '../../lib/agent_base/schema_generator'
+require_relative '../agent_base/fixtures/tools/hammer'
 
 RSpec.describe AgentBase::SchemaGenerator do
-  before do
-    source = File.expand_path('fixtures/tools', __dir__)
-    AgentBase::Tools.source = source
-    AgentBase::Tools.load
-  end
-
   describe '#generate' do
     let(:toolset) { Hammer }
     let(:task) { :find }

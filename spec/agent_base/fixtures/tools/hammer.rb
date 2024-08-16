@@ -2,6 +2,7 @@
 
 require 'ostruct'
 class Hammer < AgentBase::ToolSet
+  # Show the hammer.
   def show
     @hammer = OpenStruct.new(name: 'Hammer', weight: 2.5, material: 'steel')
   end

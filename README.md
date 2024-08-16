@@ -33,7 +33,7 @@ You can use the gem generator to create a basic skeleton for a new agent or crea
 To create a new agent using the generator, run:
 
 ```bash
-rails generate agent_base:agent Customer::Agent
+rails generate agent_base:agent CustomerSupport
 ```
 
 This will create a new agent in the `app/agents` directory with a basic structure including a title, instructions, and a toolset.
@@ -41,7 +41,7 @@ This will create a new agent in the `app/agents` directory with a basic structur
 To add tools to the agent, run:
 
 ```bash
-rails generate agent_base:tool Customer::Agent management
+rails generate agent_base:tool CustomerSupport management
 ```
 
 ### Manual Agent Setup

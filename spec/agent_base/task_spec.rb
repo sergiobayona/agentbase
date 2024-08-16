@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require_relative '../agent_base/fixtures/tools/hammer'
 
 RSpec.describe AgentBase::Task do
   subject(:task) { Hammer[:find] }
-
-  before do
-    source = File.expand_path('fixtures/tools', __dir__)
-    AgentBase::Tools.source = source
-    AgentBase::Tools.load
-  end
 
   it "returns the task's name" do
     expect(task.name).to eq(:find)

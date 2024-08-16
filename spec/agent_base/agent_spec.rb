@@ -37,13 +37,6 @@ RSpec.describe AgentBase::Agent do
     end
   end
 
-  describe '#tools' do
-    it 'returns the class tools' do
-      allow(described_class).to receive(:tools).and_return(%w[tool1 tool2])
-      expect(agent.tools).to eq(%w[tool1 tool2])
-    end
-  end
-
   describe '#model' do
     it 'returns the config model' do
       expect(agent.model).to eq('test-model')
@@ -71,12 +64,6 @@ RSpec.describe AgentBase::Agent do
         expect(described_class.agent_instructions).to eq('Test Instructions')
       end
     end
-
-    describe '.tools' do
-      it 'sets and gets the agent tools' do
-        described_class.tools(%w[tool1 tool2])
-        expect(described_class.agent_tools).to eq(%w[tool1 tool2])
-      end
-    end
   end
+
 end

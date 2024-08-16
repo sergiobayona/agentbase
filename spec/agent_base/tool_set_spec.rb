@@ -27,7 +27,7 @@ RSpec.describe AgentBase::ToolSet do
   describe '#show' do
     it 'returns the description' do
       description = Hammer[:show].description
-      expect(description).to be_empty
+      expect(description).to eq('Show the hammer.')
     end
 
     it 'returns the params' do

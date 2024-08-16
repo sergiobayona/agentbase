@@ -3,13 +3,22 @@ require 'spec_helper'
 RSpec.describe AgentBase::Application do
   subject { described_class.new }
 
+  let(:service_agent) do
+    Class.new(AgentBase::Agent) do
+      def self.name
+        'TestAgent'
+      end
+    end
+  end
+
+  before do
+    allow(AgentBase::Agent).to receive(:descendants).and_return([service_agent])
+    allow_any_instance_of(AgentBase::Application).to receive(:require)
+  end
+
   describe '#initialize' do
     it 'initializes with a Configuration instance' do
       expect(subject.config).to be_an_instance_of(AgentBase::Configuration)
-    end
-
-    it 'initializes with an Agents instance' do
-      expect(subject.agents).to be_an_instance_of(AgentBase::Agents)
     end
   end
 
@@ -23,23 +32,27 @@ RSpec.describe AgentBase::Application do
     end
   end
 
-  describe 'delegation' do
-    let(:config) { double('Config', agents_path: 'lib/', agent_file_name: 'agent.rb') }
-
-    before do
-      allow(AgentBase::Configuration).to receive(:new).and_return(config)
-      allow(config).to receive(:client)
-      allow(config).to receive(:model)
+  describe 'agents' do
+    it 'returns agents' do
+      expect(subject.agents).to be_an_instance_of(AgentBase::Application::Agents)
     end
 
-    it 'delegates client to config' do
-      expect(config).to receive(:client)
-      subject.client
+    it "returns their names" do
+      expect(subject.agents.names).to include('test_agent')
     end
 
-    it 'delegates model to config' do
-      expect(config).to receive(:model)
-      subject.model
+    it "returns their size" do
+      expect(subject.agents.size).to eq(1)
+    end
+
+    it "returns all the agents" do
+      expect(subject.agents.all).to include(service_agent)
+    end
+  end
+
+  describe "generates methods for each agent" do
+    it "returns the agent instance" do
+      expect(subject.agents.test_agent).to be_an_instance_of(service_agent)
     end
   end
 end

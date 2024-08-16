@@ -27,10 +27,6 @@ module AgentBase
       empty_directory 'app/agents'
     end
 
-    def add_agents_autoload_path
-      application "config.autoload_paths += %W(\#{config.root}/app/agents)"
-    end
-
     def display_post_install_message
       say "\nAgentBase has been successfully installed!", :green
       say "\nNext steps:"
