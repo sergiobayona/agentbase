@@ -123,10 +123,6 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    database_cleaner-active_record (2.1.0)
-      activerecord (>= 5.a)
-      database_cleaner-core (~> 2.0.0)
-    database_cleaner-core (2.0.1)
     date (3.3.4)
     diff-lcs (1.5.1)
     drb (2.2.1)
@@ -330,7 +326,6 @@ PLATFORMS
 
 DEPENDENCIES
   agent_base!
-  database_cleaner-active_record
   easy_talk!
   generator_spec
   instructor-rb!
