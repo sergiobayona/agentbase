@@ -22,6 +22,7 @@ RSpec.describe AgentBase::Configuration do
       expect(configuration.organization_id).to be_nil
       expect(configuration.agents_path).to eq('app/agents')
       expect(configuration.agent_file_name).to eq('agent.rb')
+      expect(configuration.root_path).to eq(Dir.pwd)
     end
 
     it 'sets the custom values if provided' do
@@ -34,7 +35,8 @@ RSpec.describe AgentBase::Configuration do
         log_errors: false,
         organization_id: 'org_123',
         agents_path: 'app/custom/path',
-        agent_file_name: 'custom_agent.rb'
+        agent_file_name: 'custom_agent.rb',
+        root_path: '/custom/path'
       )
       expect(configuration.provider).to eq(:custom_provider)
       expect(configuration.client).to eq(custom_client)
@@ -45,6 +47,7 @@ RSpec.describe AgentBase::Configuration do
       expect(configuration.organization_id).to eq('org_123')
       expect(configuration.agents_path).to eq('app/custom/path')
       expect(configuration.agent_file_name).to eq('custom_agent.rb')
+      expect(configuration.root_path).to eq('/custom/path')
     end
 
     it 'yields self if a block is given' do
@@ -66,6 +69,7 @@ RSpec.describe AgentBase::Configuration do
         config.organization_id = 'org_123'
         config.agents_path = 'app/custom/path'
         config.agent_file_name = 'custom_agent.rb'
+        config.root_path = '/custom/path'
       end
     end
 
@@ -79,6 +83,7 @@ RSpec.describe AgentBase::Configuration do
       expect(described_class.settings.organization_id).to eq('org_123')
       expect(described_class.settings.agents_path).to eq('app/custom/path')
       expect(described_class.settings.agent_file_name).to eq('custom_agent.rb')
+      expect(described_class.settings.root_path).to eq('/custom/path')
     end
   end
 
@@ -93,6 +98,7 @@ RSpec.describe AgentBase::Configuration do
         config.organization_id = 'org_123'
         config.agents_path = 'app/custom/path'
         config.agent_file_name = 'custom_agent.rb'
+        config.root_path = '/custom/path'
       end
     end
 
@@ -106,6 +112,7 @@ RSpec.describe AgentBase::Configuration do
       expect(described_class.settings.organization_id).to be_nil
       expect(described_class.settings.agents_path).to eq('app/agents')
       expect(described_class.settings.agent_file_name).to eq('agent.rb')
+      expect(described_class.settings.root_path).to eq(Dir.pwd)
     end
   end
 end

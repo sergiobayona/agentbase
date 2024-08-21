@@ -13,7 +13,7 @@ module AgentBase
     end
 
     def load_agents
-      Dir.glob(Rails.root.join(config.agents_path, '**', config.agent_file_name)).each do |file|
+      Dir.glob(File.join(@config.root_path, @config.agents_path, '**', @config.agent_file_name)).each do |file|
         require file
       end
     end

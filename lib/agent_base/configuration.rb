@@ -5,7 +5,7 @@ require 'agent_base/providers/openai'
 module AgentBase
   class Configuration
     attr_reader :provider, :api_key, :model, :client_retries, :client, :log_errors, :organization_id, :agents_path,
-                :agent_file_name
+                :agent_file_name, :root_path
 
     def initialize(options = {})
       @options = options.dup
@@ -20,6 +20,7 @@ module AgentBase
       @organization_id = @options.fetch(:organization_id, default_organization_id)
       @agents_path = @options.fetch(:agents_path, default_agents_path)
       @agent_file_name = @options.fetch(:agent_file_name, default_agent_file_name)
+      @root_path = @options.fetch(:root_path, default_root_path)
     end
 
     class << self
@@ -108,6 +109,12 @@ module AgentBase
       @agent_file_name = @options[:agent_file_name] = agent_file_name
     end
 
+    def root_path=(path)
+      @root_path = @options[:root_path] = path
+    end
+
+    private
+
     def default_client
       AgentBase::Providers::OpenAI.client
     end
@@ -130,6 +137,15 @@ module AgentBase
 
     def default_agent_file_name
       'agent.rb'
+    end
+
+    def default_root_path
+      if defined?(Rails) && Rails.respond_to?(:root)
+        Rails.root
+      else
+        # Fallback to the current working directory if not in a Rails environment
+        Dir.pwd
+      end
     end
   end
 end

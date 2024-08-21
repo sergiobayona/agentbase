@@ -18,7 +18,17 @@ module AgentBase
   autoload :Agents
   autoload :Agent
 
-  def self.root
-    File.expand_path '..', __dir__
+  class << self
+    def configure
+      yield(Configuration.settings) if block_given?
+    end
+
+    def root_path=(path)
+      Configuration.settings.root_path = path
+    end
+
+    def root_path
+      Configuration.settings.root_path
+    end
   end
 end
