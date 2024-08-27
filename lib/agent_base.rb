@@ -6,6 +6,9 @@ require 'method'
 
 module AgentBase
   class Error < StandardError; end
+  class ToolLoadError < Error; end
+  class AgentInitializationError < Error; end
+  class ConfigurationError < StandardError; end
 
   extend ActiveSupport::Autoload
 

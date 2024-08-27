@@ -1,12 +1,14 @@
 module AgentBase
   class Agent
-    attr_reader :config, :client, :module_name
+    attr_reader :config, :client, :module_name, :toolset
 
     def initialize(config, module_name)
       @config = config
       @client = initialize_client
       @module_name = module_name
       load_toolset
+      rescue StandardError => e
+        raise AgentInitializationError, "Failed to initialize agent: #{e.message}"
     end
 
     def name
@@ -23,10 +25,6 @@ module AgentBase
 
     def model
       config.model
-    end
-
-    def toolset
-      @toolset ||= ToolSet.new(self.class.toolset, self)
     end
 
     class << self
@@ -54,25 +52,31 @@ module AgentBase
     end
 
     def load_toolset
+      @toolset = ToolSet.new(self.class.toolset, self)
       self.class.toolset.each do |tool|
         require_tool(tool)
-      rescue LoadError => e
-        puts "Failed to load tool #{tool}: #{e.message}"
+      rescue StandardError => e
+        raise ToolLoadError, "Failed to load toolset: #{e.message}"
       end
     end
+
+    private
 
     def require_tool(tool)
       tool_file = "tools/#{tool.to_s.underscore}"
       require tool_file
     rescue LoadError
-      # If the generic path doesn't work, try a more specific path
-      require Rails.root.join('app', 'agents', "#{@module_name.downcase}", "#{tool.to_s.underscore}.rb")
+      begin
+        require Rails.root.join('app', 'agents', "#{@module_name.downcase}", "#{tool.to_s.underscore}.rb")
+      rescue LoadError => e
+        raise ToolLoadError, "Failed to load tool #{tool}: #{e.message}"
+      end
     end
 
-    private
-
     def initialize_client
-      config.client.new(access_token: config.api_key, log_errors: config.log_errors)
+      @client = config.client.new(access_token: config.api_key, log_errors: config.log_errors)
+    rescue StandardError => e
+      raise AgentInitializationError, "Failed to initialize client: #{e.message}"
     end
   end
 end

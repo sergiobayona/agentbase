@@ -1,14 +1,15 @@
 require 'active_support'
+
 module AgentBase
   class ToolSet
+    attr_reader :tools
+
     def initialize(tool_names, agent)
       @tool_names = tool_names
-      @tools = []
       @agent = agent
+      @tools = []
       register_tools
     end
-
-    attr_reader :tools
 
     def self.tasks
       # return a hash of all for the tool. the key is the task name and the value is the task class.
@@ -33,10 +34,18 @@ module AgentBase
 
     def register_tools
       @tool_names.each do |tool|
-        define_singleton_method(tool) do
-          self.class.const_get("#{@agent.module_name}::#{tool.capitalize}")
-        end
+        register_tool(tool)
       end
+    end
+
+    private
+
+    def register_tool(tool)
+      tool_class = self.class.const_get("#{@agent.module_name}::#{tool.capitalize}")
+      @tools << tool_class
+      define_singleton_method(tool) { tool_class }
+      rescue NameError => e
+        raise ToolLoadError, "Failed to register tool #{tool}: #{e.message}"
     end
   end
 end

@@ -13,7 +13,6 @@ RSpec.describe AgentBase::Application do
 
   before do
     allow(AgentBase::Agent).to receive(:descendants).and_return([service_agent])
-    allow_any_instance_of(AgentBase::Application).to receive(:require)
   end
 
   describe '#initialize' do
@@ -37,21 +36,21 @@ RSpec.describe AgentBase::Application do
       expect(subject.agents).to be_an_instance_of(AgentBase::Application::Agents)
     end
 
-    it "returns their names" do
+    it 'returns their names' do
       expect(subject.agents.names).to include('test_agent')
     end
 
-    it "returns their size" do
+    it 'returns their size' do
       expect(subject.agents.size).to eq(1)
     end
 
-    it "returns all the agents" do
+    it 'returns all the agents' do
       expect(subject.agents.all).to include(service_agent)
     end
   end
 
-  describe "generates methods for each agent" do
-    it "returns the agent instance" do
+  describe 'generates methods for each agent' do
+    it 'returns the agent instance' do
       expect(subject.agents.test_agent).to be_an_instance_of(service_agent)
     end
   end
