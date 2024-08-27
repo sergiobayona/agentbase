@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe AgentBase::Agent do
   let(:config) { double('Config', model: 'test-model', client: double('ClientClass'), api_key: 'test-key', log_errors: true) }
   let(:client_instance) { double('ClientInstance') }
-  let(:agent) { described_class.new(config) }
+  let(:agent) { described_class.new(config, 'Customer') }
 
   before do
     allow(config.client).to receive(:new).and_return(client_instance)
@@ -66,4 +66,9 @@ RSpec.describe AgentBase::Agent do
     end
   end
 
+  describe 'toolset' do
+    it 'returns a new ToolSet instance' do
+      expect(agent.toolset).to be_a(AgentBase::ToolSet)
+    end
+  end
 end

@@ -2,7 +2,6 @@
 
 require_relative 'agent'
 module AgentBase
-
   class Application
     attr_accessor :config, :agents
 
@@ -22,7 +21,8 @@ module AgentBase
       @agents = Agents.new
 
       _agents.each do |agent|
-        agent_instance = agent.new(config)
+        module_name = ActiveSupport::Inflector.deconstantize(agent.to_s)
+        agent_instance = agent.new(config, module_name)
         @agents << agent_instance
       end
     end
@@ -30,12 +30,12 @@ module AgentBase
     delegate :client, :model, to: :config
 
     private
+
     def _agents
       Agent.descendants
     end
 
     class Agents
-
       def initialize
         @agents = []
       end
@@ -65,7 +65,7 @@ module AgentBase
       end
 
       def names
-        @agents.map{|agent| agent.class.name.underscore }
+        @agents.map { |agent| agent.class.name.underscore }
       end
     end
   end

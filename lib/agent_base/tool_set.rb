@@ -1,19 +1,14 @@
 require 'active_support'
 module AgentBase
   class ToolSet
-    def initialize
-      AgentBase::Tools.load
-      # dynamically define getter methods for each tool
-      all.each do |tool|
-        define_singleton_method(tool.name.downcase.to_sym) do
-          AgentBase::Tools.const_get(tool.name.to_sym)
-        end
-      end
+    def initialize(tool_names, agent)
+      @tool_names = tool_names
+      @tools = []
+      @agent = agent
+      register_tools
     end
 
-    def all
-      self.class.descendants
-    end
+    attr_reader :tools
 
     def self.tasks
       # return a hash of all for the tool. the key is the task name and the value is the task class.
@@ -26,10 +21,22 @@ module AgentBase
       to_s.split('::').last
     end
 
+    def names
+      @tool_names
+    end
+
     def self.[](task)
       raise 'Task not found' unless tasks.include?(task)
 
       Task.new(self, task)
+    end
+
+    def register_tools
+      @tool_names.each do |tool|
+        define_singleton_method(tool) do
+          self.class.const_get("#{@agent.module_name}::#{tool.capitalize}")
+        end
+      end
     end
   end
 end

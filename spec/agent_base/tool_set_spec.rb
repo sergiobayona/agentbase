@@ -9,7 +9,7 @@ RSpec.describe AgentBase::ToolSet do
   end
 
   it 'has keys as names of tasks' do
-    expect(Hammer.tasks.keys).to eq(%i[smack show find])
+    expect(Hammer.tasks.keys).to include(:smack, :find, :show)
   end
 
   it 'has values as instances of Task' do

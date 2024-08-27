@@ -1,11 +1,12 @@
 module AgentBase
   class Agent
-    attr_reader :config, :toolset, :client, :model
+    attr_reader :config, :client, :module_name
 
-    def initialize(config)
+    def initialize(config, module_name)
       @config = config
       @client = initialize_client
-      create_toolset
+      @module_name = module_name
+      load_toolset
     end
 
     def name
@@ -20,12 +21,12 @@ module AgentBase
       self.class.instructions
     end
 
-    def toolset
-      self.class.toolset
-    end
-
     def model
       config.model
+    end
+
+    def toolset
+      @toolset ||= ToolSet.new(self.class.toolset, self)
     end
 
     class << self
@@ -52,18 +53,26 @@ module AgentBase
       end
     end
 
+    def load_toolset
+      self.class.toolset.each do |tool|
+        require_tool(tool)
+      rescue LoadError => e
+        puts "Failed to load tool #{tool}: #{e.message}"
+      end
+    end
+
+    def require_tool(tool)
+      tool_file = "tools/#{tool.to_s.underscore}"
+      require tool_file
+    rescue LoadError
+      # If the generic path doesn't work, try a more specific path
+      require Rails.root.join('app', 'agents', "#{@module_name.downcase}", "#{tool.to_s.underscore}.rb")
+    end
+
     private
 
     def initialize_client
       config.client.new(access_token: config.api_key, log_errors: config.log_errors)
-    end
-
-    def create_toolset
-      toolset.each do |tool|
-        define_singleton_method(tool.name.downcase.to_sym) do
-          AgentBase::ToolSet.const_get(tool.name.to_sym)
-        end
-      end
     end
   end
 end
