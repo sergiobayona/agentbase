@@ -15,10 +15,10 @@ module AgentBase
   autoload :Configuration
   autoload :Application
   autoload :ToolSet
+  autoload :Tool
   autoload :Models
   autoload :SchemaGenerator
   autoload :Task
-  autoload :Agents
   autoload :Agent
 
   class << self

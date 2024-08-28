@@ -1,10 +1,9 @@
-# spec/agent_spec.rb
 require 'spec_helper'
 
 RSpec.describe AgentBase::Agent do
   let(:config) { double('Config', model: 'test-model', client: double('ClientClass'), api_key: 'test-key', log_errors: true) }
   let(:client_instance) { double('ClientInstance') }
-  let(:agent) { described_class.new(config, 'Customer') }
+  let(:agent) { described_class.new(config) }
 
   before do
     allow(config.client).to receive(:new).and_return(client_instance)
@@ -44,24 +43,18 @@ RSpec.describe AgentBase::Agent do
   end
 
   describe 'class methods' do
-    describe '.name' do
-      it 'sets and gets the agent name' do
-        described_class.name('TestAgent')
-        expect(described_class.agent_name).to eq('TestAgent')
-      end
-    end
 
     describe '.title' do
       it 'sets and gets the agent title' do
         described_class.title('Test Title')
-        expect(described_class.agent_title).to eq('Test Title')
+        expect(described_class.title).to eq('Test Title')
       end
     end
 
     describe '.instructions' do
       it 'sets and gets the agent instructions' do
         described_class.instructions('Test Instructions')
-        expect(described_class.agent_instructions).to eq('Test Instructions')
+        expect(described_class.instructions).to eq('Test Instructions')
       end
     end
   end

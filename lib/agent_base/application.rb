@@ -14,28 +14,23 @@ module AgentBase
         raise Error, "Failed to initialize application: #{e.message}"
     end
 
-    def load_agents
-      Dir.glob(File.join(@config.root_path, @config.agents_path, '**', @config.agent_file_name)).each do |file|
-        require file
-      end
-    rescue LoadError => e
-      raise Error, "Failed to load agent files: #{e.message}"
-    end
+
+    private
 
     def register_agents
-      available_agents.each do |agent_class|
-        module_name = ActiveSupport::Inflector.deconstantize(agent_class.to_s)
-        agent_instance = agent_class.new(config, module_name)
-        @agents << agent_instance
+      Agent.descendants.each do |agent_class|
+        @agents << agent_class.new(config)
       rescue AgentInitializationError, ToolLoadError => e
         log_error("Failed to register agent #{agent_class}: #{e.message}")
       end
     end
 
-    private
-
-    def available_agents
-      Agent.descendants
+    def load_agents
+      Dir.glob(File.join(@config.root_path, @config.agents_path, '**', "*.rb")).each do |file|
+        require file
+      end
+    rescue LoadError => e
+      raise Error, "Failed to load agent files: #{e.message}"
     end
 
     def log_error(message)
@@ -44,37 +39,33 @@ module AgentBase
     end
 
     class Agents
+      include Enumerable
+
       def initialize
         @agents = []
       end
 
       def <<(agent)
-        define_singleton_method(agent.name.underscore) do
-          agent
-        end
-
+        define_singleton_method(agent.name.underscore) { agent }
         @agents << agent
-      end
-
-      def all
-        @agents
       end
 
       def each(&block)
         @agents.each(&block)
       end
 
-      def map(&block)
-        @agents.map(&block)
+      def names
+        map { |agent| agent.class.name.underscore }
       end
 
       def size
         @agents.size
       end
 
-      def names
-        @agents.map { |agent| agent.class.name.underscore }
+      def all
+        @agents
       end
+
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'ostruct'
-class Hammer < AgentBase::ToolSet
+class Hammer < AgentBase::Tool
   # Show the hammer.
   def show
     @hammer = OpenStruct.new(name: 'Hammer', weight: 2.5, material: 'steel')

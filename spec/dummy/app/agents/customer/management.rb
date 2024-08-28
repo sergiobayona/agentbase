@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Customer
-  class Management < AgentBase::ToolSet
+  class Management < AgentBase::Tool
     # Shows the user record from the database.
     # @param user_id [Integer] the id of the user to show.
     def show(user_id)

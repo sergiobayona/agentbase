@@ -154,3 +154,7 @@ agent_tools = app.agents.customer_assistant.tools
 agent_tools.communication.actions
 => [:welcome_email, :email_authentication, :sms_authentication]
 ```
+
+INLINE PROJECT:
+
+inline-project . output.txt --exclude-dirs spec .git --exclude-files .rspec_status .DS_Store CHANGELOG.md .byebug_history .gitignore .rubocop.yml Gemfile.lock Rakefile 
