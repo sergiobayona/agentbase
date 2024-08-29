@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'agent'
+require_relative "agent"
 module AgentBase
   class Application
     attr_reader :config, :agents
@@ -10,10 +10,9 @@ module AgentBase
       @agents = Agents.new
       load_agents
       register_agents
-      rescue StandardError => e
-        raise Error, "Failed to initialize application: #{e.message}"
+    rescue StandardError => e
+      raise Error, "Failed to initialize application: #{e.message}"
     end
-
 
     private
 
@@ -26,9 +25,9 @@ module AgentBase
     end
 
     def load_agents
-      Dir.glob(File.join(@config.root_path, @config.agents_path, '**', "*.rb")).each do |file|
-        require file
-      end
+      Dir
+        .glob(File.join(@config.root_path, @config.agents_path, "**", "*.rb"))
+        .each { |file| require file }
     rescue LoadError => e
       raise Error, "Failed to load agent files: #{e.message}"
     end
@@ -65,7 +64,6 @@ module AgentBase
       def all
         @agents
       end
-
     end
   end
 end
